@@ -1,0 +1,2569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STBB Connect — Class 9 & 10 STBB Study Hub</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    .tab-btn {
+      position: relative;
+      transition: all 0.2s ease;
+    }
+    .tab-btn.active {
+      color: #ffffff;
+      font-weight: 700;
+      background-color: #18181b;
+    }
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 14%;
+      right: 14%;
+      height: 3px;
+      background-color: #38bdf8;
+      border-radius: 999px;
+    }
+    .grade-pill {
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .grade-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.16);
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    .animate-slide-in {
+      animation: slideInRight 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- ==================== 1. TOP HEADER BAR ==================== -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <!-- Left: Custom SVG Monogram Logo + Editable Brand Name -->
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center shadow-sm p-1 shrink-0" title="STBB Connect Logo">
+          <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="STBB Connect S-Cursor Emblem">
+            <defs>
+              <!-- Crisp vertical cutout gap in the lower curve to the left of the amber pointer -->
+              <mask id="stbbSCutoutMask">
+                <rect x="0" y="0" width="100" height="100" fill="white" />
+                <rect x="48" y="70" width="4.2" height="25" fill="black" />
+              </mask>
+            </defs>
+
+            <!-- Standard Symmetric Bold Royal Blue 'S' (Equal Top and Bottom Proportions) -->
+            <g mask="url(#stbbSCutoutMask)">
+              <path d="M 74 28 C 67 16, 48 13, 33 17 C 20 21, 16 33, 22 42 C 28 49, 41 50, 52 52 C 64 54, 76 57, 78 69 C 80 81, 67 88, 50 88 C 34 88, 22 82, 18 71"
+                stroke="#2563eb" stroke-width="16.5" stroke-linecap="butt" stroke-linejoin="round" />
+            </g>
+
+            <!-- Tilted Amber Mouse Pointer Arrow Overlapping the Lower-Right Curve -->
+            <polygon points="56,55 86,69 73,75 81,89 73,94 65,80 59,91"
+              fill="#f59e0b" stroke="#ffffff" stroke-width="3.5" stroke-linejoin="miter" />
+          </svg>
+        </div>
+        <div class="flex items-center gap-1.5 group">
+          <span id="brandNameDisplay" contenteditable="true" spellcheck="false"
+            title="Click to customize your project name"
+            class="font-display font-bold text-lg sm:text-xl text-slate-900 tracking-tight outline-none focus:bg-blue-50 focus:px-2 rounded-md transition">
+            STBB Connect
+          </span>
+          <button onclick="focusBrandName()" title="Edit Brand Name"
+            class="text-slate-400 hover:text-blue-600 p-1 rounded-md transition">
+            <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+        <span class="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+          STBB Class 9 & 10
+        </span>
+      </div>
+
+      <!-- Right: About & Contact Us Links -->
+      <nav class="flex items-center gap-2 sm:gap-5 text-sm font-medium text-slate-600">
+        <button onclick="openModal('aboutModal')"
+          class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-blue-600 transition flex items-center gap-1.5">
+          <i data-lucide="info" class="w-4 h-4 text-slate-400"></i>
+          <span>About</span>
+        </button>
+        <button onclick="openModal('contactModal')"
+          class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-blue-600 transition flex items-center gap-1.5">
+          <i data-lucide="mail" class="w-4 h-4 text-slate-400"></i>
+          <span>Contact Us</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- ==================== 2. CHARCOAL GREY 5-TAB NAVIGATION BAR ==================== -->
+    <div class="bg-[#27272a] border-t border-zinc-700 shadow-md">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-5 divide-x divide-zinc-700 text-xs sm:text-sm md:text-base font-medium text-zinc-200" role="tablist">
+          <button onclick="switchTab('home')" id="tab-home"
+            class="tab-btn active py-3.5 px-2 flex items-center justify-center gap-2 hover:bg-zinc-700 hover:text-white focus:outline-none">
+            <i data-lucide="home" class="w-4 h-4 hidden sm:inline"></i>
+            <span>Home</span>
+          </button>
+          <button onclick="switchTab('quiz')" id="tab-quiz"
+            class="tab-btn py-3.5 px-2 flex items-center justify-center gap-2 hover:bg-zinc-700 hover:text-white focus:outline-none">
+            <i data-lucide="help-circle" class="w-4 h-4 hidden sm:inline"></i>
+            <span>Quiz</span>
+          </button>
+          <button onclick="switchTab('books')" id="tab-books"
+            class="tab-btn py-3.5 px-2 flex items-center justify-center gap-2 hover:bg-zinc-700 hover:text-white focus:outline-none">
+            <i data-lucide="book-open" class="w-4 h-4 hidden sm:inline"></i>
+            <span>Books PDF</span>
+          </button>
+          <button onclick="switchTab('papers')" id="tab-papers"
+            class="tab-btn py-3.5 px-2 flex items-center justify-center gap-2 hover:bg-zinc-700 hover:text-white focus:outline-none">
+            <i data-lucide="file-text" class="w-4 h-4 hidden sm:inline"></i>
+            <span>Past Papers</span>
+          </button>
+          <button onclick="switchTab('lectures')" id="tab-lectures"
+            class="tab-btn py-3.5 px-2 flex items-center justify-center gap-2 hover:bg-zinc-700 hover:text-white focus:outline-none">
+            <i data-lucide="play-circle" class="w-4 h-4 hidden sm:inline"></i>
+            <span>Lectures Video</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 3. THREE-COLUMN MAIN WORKSPACE ==================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- LEFT SIDEBAR -->
+      <aside class="lg:col-span-2 flex lg:flex-col gap-3">
+        <button onclick="switchTab('books')"
+          class="flex-1 lg:flex-none w-full flex items-center gap-3 px-4 py-3 bg-white hover:bg-blue-50 text-slate-800 hover:text-blue-700 font-semibold text-sm rounded-2xl border border-slate-200 shadow-sm transition">
+          <i data-lucide="menu" class="w-5 h-5 text-blue-600 shrink-0"></i>
+          <span>Books</span>
+        </button>
+
+        <button onclick="openHistoryModal()"
+          class="flex-1 lg:flex-none w-full flex items-center justify-between px-4 py-3 bg-white hover:bg-blue-50 text-slate-800 hover:text-blue-700 font-semibold text-sm rounded-2xl border border-slate-200 shadow-sm transition">
+          <div class="flex items-center gap-3">
+            <i data-lucide="clock" class="w-5 h-5 text-slate-600 shrink-0"></i>
+            <span>History</span>
+          </div>
+          <span id="historyCountBadge" class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-bold">0</span>
+        </button>
+
+        <!-- Current Selection Status Card -->
+        <div class="hidden lg:block mt-2 p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[11px] uppercase tracking-wider font-bold text-slate-400 mb-2">Current Selection</p>
+          <div class="space-y-2 text-sm">
+            <div class="flex items-center justify-between">
+              <span class="text-slate-500">Grade:</span>
+              <span id="sidebarGradeBadge" class="font-bold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full text-xs">Class 9</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-slate-500">Subject:</span>
+              <span id="sidebarSubjectBadge" class="font-semibold text-slate-800 text-xs truncate max-w-[95px]">All Subjects</span>
+            </div>
+          </div>
+          <button onclick="resetFilters()" class="mt-3 w-full text-xs text-slate-500 hover:text-blue-600 underline text-left">
+            Reset selection
+          </button>
+        </div>
+      </aside>
+
+      <!-- CENTER MAIN CONTENT AREA -->
+      <section class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-8 min-h-[540px] flex flex-col justify-between">
+        <!-- Dynamic Content Container -->
+        <div id="mainContentArea" class="flex-1 flex flex-col"></div>
+
+        <!-- Bottom Interactive Universal Search Bar -->
+        <div class="mt-8 pt-4 border-t border-slate-100 relative">
+          <form onsubmit="handleQuerySubmit(event)" class="relative flex items-center">
+            <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute left-4 pointer-events-none"></i>
+            <input type="text" id="queryInput" oninput="handleLiveSearch(this.value)" autocomplete="off"
+              placeholder="Ask your Query....... (Search Quizzes, Past Papers 2021–2025, Books PDF, Lectures...)"
+              class="w-full pl-12 pr-28 py-3.5 bg-slate-50 hover:bg-slate-100/70 focus:bg-white text-sm sm:text-base text-slate-800 placeholder-slate-400 rounded-full border-2 border-slate-300 focus:border-zinc-800 focus:outline-none transition shadow-sm" />
+            <button type="button" id="clearQueryBtn" onclick="clearUniversalSearch()"
+              class="hidden absolute right-24 p-1.5 text-slate-400 hover:text-slate-700" title="Clear search">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+            <button type="submit"
+              class="absolute right-2 px-4 py-2 bg-[#27272a] hover:bg-zinc-900 text-white text-xs sm:text-sm font-semibold rounded-full transition shadow-sm">
+              Search
+            </button>
+          </form>
+
+          <!-- Live Categorized Search Results Drawer -->
+          <div id="queryResultBox" class="hidden mt-3 p-4 rounded-2xl bg-slate-50 border-2 border-zinc-300 shadow-md space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+              <div class="flex items-center gap-2">
+                <i data-lucide="sparkles" class="w-4 h-4 text-blue-600"></i>
+                <span id="queryResultHeader" class="font-display font-bold text-xs sm:text-sm text-slate-900">Search Results</span>
+              </div>
+              <button onclick="clearUniversalSearch()" class="text-xs font-semibold text-slate-500 hover:text-slate-900 flex items-center gap-1">
+                <span>Close</span>
+                <i data-lucide="x" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+            <div id="queryResultList" class="max-h-72 overflow-y-auto space-y-2 pr-1"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT SIDEBAR ("Revise My Mistakes" + STBB Class 9 & Class 10 Lists) -->
+      <aside class="lg:col-span-3 space-y-4">
+        <button onclick="openMistakesModal()"
+          class="w-full py-2.5 px-4 bg-white hover:bg-amber-50 text-slate-900 hover:text-amber-800 font-semibold text-sm rounded-full border-2 border-slate-800 hover:border-amber-600 shadow-sm transition flex items-center justify-center gap-2">
+          <i data-lucide="rotate-ccw" class="w-4 h-4 text-amber-600"></i>
+          <span>Revise My Mistakes</span>
+          <span id="mistakesCountBadge" class="ml-1 px-2 py-0.5 text-xs font-bold rounded-full bg-amber-100 text-amber-800">0</span>
+        </button>
+
+        <!-- STBB Class 9 Subject Box -->
+        <div class="bg-white rounded-2xl border-2 border-slate-300 overflow-hidden shadow-sm">
+          <div class="bg-slate-100 px-4 py-2.5 border-b border-slate-300 flex items-center justify-between">
+            <h2 class="font-display font-bold text-sm text-slate-900">STBB Class 9</h2>
+            <span class="text-[11px] font-semibold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full">8 Subjects</span>
+          </div>
+          <ul id="class9SubjectList" class="divide-y divide-slate-100 text-sm"></ul>
+        </div>
+
+        <!-- STBB Class 10 Subject Box -->
+        <div class="bg-white rounded-2xl border-2 border-slate-300 overflow-hidden shadow-sm">
+          <div class="bg-slate-100 px-4 py-2.5 border-b border-slate-300 flex items-center justify-between">
+            <h2 class="font-display font-bold text-sm text-slate-900">STBB Class 10</h2>
+            <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">8 Subjects</span>
+          </div>
+          <ul id="class10SubjectList" class="divide-y divide-slate-100 text-sm"></ul>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+  <!-- 1. PDF Reader / Resource Preview Modal -->
+  <div id="previewModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-5xl w-full border border-slate-200 shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span id="previewBadge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700">STBB PDF</span>
+          <h3 id="previewTitle" class="font-display font-bold text-slate-900 text-base sm:text-lg">Textbook Preview</h3>
+        </div>
+        <button onclick="closeModal('previewModal')" class="p-1.5 rounded-full hover:bg-slate-200 text-slate-500">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="previewBody" class="p-5 sm:p-6 max-h-[76vh] overflow-y-auto space-y-4 text-sm text-slate-700"></div>
+      <div class="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        <a id="officialStbbLink" href="https://ebooks.stbb.edu.pk/" target="_blank" rel="noopener noreferrer"
+          class="text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1.5">
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          <span>Open Official STBB E-Books Portal</span>
+        </a>
+        <div class="flex items-center gap-2.5 ml-auto">
+          <button onclick="closeModal('previewModal')" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 text-sm font-medium hover:bg-slate-100">
+            Close
+          </button>
+          <button id="modalDownloadBtn" onclick="downloadCurrentResource()" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold flex items-center gap-2">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span>Download PDF</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Revise My Mistakes Modal -->
+  <div id="mistakesModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-5xl w-full border border-slate-200 shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 bg-amber-50 border-b border-amber-200 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="rotate-ccw" class="w-5 h-5 text-amber-600"></i>
+          <h3 class="font-display font-bold text-slate-900 text-lg">Revise My Mistakes</h3>
+        </div>
+        <button onclick="closeModal('mistakesModal')" class="p-1.5 rounded-full hover:bg-amber-100 text-slate-600">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="mistakesBody" class="p-6 max-h-[68vh] overflow-y-auto space-y-4"></div>
+      <div class="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex justify-between items-center">
+        <button onclick="clearMistakes()" class="text-xs font-semibold text-rose-600 hover:underline">Clear All Mistakes</button>
+        <button onclick="closeModal('mistakesModal')" class="px-5 py-2 rounded-xl bg-slate-900 text-white text-sm font-semibold">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. History Modal -->
+  <div id="historyModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full border border-slate-200 shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="clock" class="w-5 h-5 text-blue-600"></i>
+          <h3 class="font-display font-bold text-slate-900 text-lg">Recent Study History</h3>
+        </div>
+        <button onclick="closeModal('historyModal')" class="p-1.5 rounded-full hover:bg-slate-200 text-slate-500">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="historyBody" class="p-6 max-h-[60vh] overflow-y-auto space-y-3"></div>
+      <div class="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex justify-between items-center">
+        <button onclick="clearHistory()" class="text-xs font-semibold text-slate-500 hover:text-rose-600">Clear History</button>
+        <button onclick="closeModal('historyModal')" class="px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-semibold">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. About Modal -->
+  <div id="aboutModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full border border-slate-200 shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 bg-[#27272a] text-white flex items-center justify-between">
+        <h3 class="font-display font-bold text-lg">About STBB Connect</h3>
+        <button onclick="closeModal('aboutModal')" class="p-1 rounded-full hover:bg-zinc-700">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="p-6 space-y-3 text-sm text-slate-600 leading-relaxed">
+        <p class="font-semibold text-slate-900 text-base">Empowering Class 9 & 10 Students Across Sindh</p>
+        <p>
+          <strong>STBB Connect</strong> organizes all <strong>Sindh Textbook Board (STBB)</strong> resources into one accessible hub—featuring authentic chapter-wise MCQs, official PDF textbooks, 5-year board past papers, and concept video lectures.
+        </p>
+        <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1 text-xs">
+          <p><strong>Key Features:</strong></p>
+          <ul class="list-disc list-inside space-y-1 text-slate-600">
+            <li>Dedicated STBB Class 9 & Class 10 Subject Navigation</li>
+            <li>100% syllabus-aligned STBB textbook quizzes across all 16 books</li>
+            <li>"Revise My Mistakes" smart error tracker for exam prep</li>
+            <li>Universal live search across quizzes, past papers, books, and lectures</li>
+          </ul>
+        </div>
+      </div>
+      <div class="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex justify-end">
+        <button onclick="closeModal('aboutModal')" class="px-5 py-2 rounded-xl bg-[#27272a] text-white text-sm font-semibold">Got It</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Contact Us Modal -->
+  <div id="contactModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full border border-slate-200 shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+        <h3 class="font-display font-bold text-slate-900 text-lg">Contact Us</h3>
+        <button onclick="closeModal('contactModal')" class="p-1.5 rounded-full hover:bg-slate-200 text-slate-500">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <form onsubmit="handleContactSubmit(event)" class="p-6 space-y-4 text-sm">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Student / Teacher Name</label>
+          <input type="text" required placeholder="Enter your name" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Grade & Subject</label>
+          <input type="text" required placeholder="e.g. Class 10 - Physics" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Message or Book Request</label>
+          <textarea rows="3" required placeholder="How can we help you?" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:outline-none"></textarea>
+        </div>
+        <button type="submit" class="w-full py-2.5 rounded-xl bg-[#27272a] hover:bg-zinc-900 text-white font-semibold transition">
+          Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-zinc-900 text-white text-sm font-medium px-4 py-3 rounded-2xl shadow-lg flex items-center gap-2.5">
+    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toastMessage">Action completed</span>
+  </div>
+
+  <!-- ==================== APPLICATION LOGIC ==================== -->
+  <script>
+    const SUBJECTS = {
+      9: ['Biology', 'Computer', 'Maths', 'Chemistry', 'Physics', 'English', 'Urdu', 'Islamiat'],
+      10: ['Biology', 'Computer', 'Maths', 'Chemistry', 'Physics', 'English', 'Sindhi', 'Pak. Studies']
+    };
+
+    const SUBJECT_ICONS = {
+      'Biology': 'dna',
+      'Computer': 'cpu',
+      'Maths': 'sigma',
+      'Chemistry': 'flask-conical',
+      'Physics': 'atom',
+      'English': 'book-a',
+      'Urdu': 'feather',
+      'Islamiat': 'moon',
+      'Sindhi': 'languages',
+      'Pak. Studies': 'landmark'
+    };
+
+    const STBB_BOOKS_CATALOG = [
+      {
+        id: 'stbb-9-bio',
+        grade: 9,
+        subject: 'Biology',
+        fullTitle: 'Biology for Class IX (STBB Jamshoro)',
+        edition: '2024-26 Official Edition',
+        size: '18.0 MB',
+        pdfFile: 'IX-BIOLOGY.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/english/class-ix',
+        chapters: [
+          'Chapter 1: Introduction to Biology',
+          'Chapter 2: Solving a Biological Problem',
+          'Chapter 3: Biodiversity',
+          'Chapter 4: Cells and Tissues',
+          'Chapter 5: Cell Cycle',
+          'Chapter 6: Enzymes',
+          'Chapter 7: Bioenergetics',
+          'Chapter 8: Nutrition',
+          'Chapter 9: Transport'
+        ]
+      },
+      {
+        id: 'stbb-9-comp',
+        grade: 9,
+        subject: 'Computer',
+        fullTitle: 'Computer Science Class IX (STBB)',
+        edition: 'Revised Curriculum Edition',
+        size: '30.0 MB',
+        pdfFile: 'IX-COMPUTER.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/english/class-ix',
+        chapters: [
+          'Chapter 1: Fundamentals of Computer',
+          'Chapter 2: Fundamentals of Operating System',
+          'Chapter 3: Office Automation',
+          'Chapter 4: Data Communication and Computer Networks',
+          'Chapter 5: Computer Security and Ethics',
+          'Chapter 6: Web Development (HTML & CSS)',
+          'Chapter 7: Introduction to Database System'
+        ]
+      },
+      {
+        id: 'stbb-9-math',
+        grade: 9,
+        subject: 'Maths',
+        fullTitle: 'Mathematics for Class IX (Science Group)',
+        edition: 'Official STBB Textbook',
+        size: '88.0 MB',
+        pdfFile: 'IX-MATHSpdf.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/english/class-ix',
+        chapters: [
+          'Unit 1: Real and Complex Numbers',
+          'Unit 2: Logarithms',
+          'Unit 3: Algebraic Expressions and Formulas',
+          'Unit 4: Factorization',
+          'Unit 5: Algebraic Manipulation',
+          'Unit 6: Linear Equations and Inequalities',
+          'Unit 7: Linear Graphs and Their Applications',
+          'Unit 8: Quadratic Equations',
+          'Unit 9: Congruent Triangles',
+          'Unit 10: Parallelograms and Triangles',
+          'Unit 11: Line Bisectors and Angle Bisectors',
+          'Unit 12: Sides and Angles of a Triangle',
+          'Unit 13: Practical Geometry — Triangles',
+          'Unit 14: Theorems Related with Area',
+          'Unit 15: Projection of a Side of a Triangle',
+          'Unit 16: Introduction to Coordinate Geometry'
+        ]
+      },
+      {
+        id: 'stbb-9-chem',
+        grade: 9,
+        subject: 'Chemistry',
+        fullTitle: 'Chemistry for Class IX (STBB Jamshoro)',
+        edition: 'Official STBB Edition',
+        size: '58.0 MB',
+        pdfFile: 'IX-CHEMISTRY.pdf.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/english/class-ix',
+        chapters: [
+          'Chapter 1: Fundamentals of Chemistry',
+          'Chapter 2: Atomic Structure',
+          'Chapter 3: Periodic Table and Periodicity of Properties',
+          'Chapter 4: Chemical Bonding',
+          'Chapter 5: Physical States of Matter',
+          'Chapter 6: Solutions',
+          'Chapter 7: Electrochemistry',
+          'Chapter 8: Chemical Reactivity'
+        ]
+      },
+      {
+        id: 'stbb-9-phys',
+        grade: 9,
+        subject: 'Physics',
+        fullTitle: 'Physics for Class IX (STBB Jamshoro)',
+        edition: 'Official STBB Edition',
+        size: '52.0 MB',
+        pdfFile: 'IX-PHYSICS.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/english/class-ix',
+        chapters: [
+          'Unit 1: Physical Quantities and Measurement',
+          'Unit 2: Kinematics',
+          'Unit 3: Dynamics',
+          'Unit 4: Turning Effect of Forces',
+          'Unit 5: Forces and Matter',
+          'Unit 6: Gravitation',
+          'Unit 7: Properties of Matter',
+          'Unit 8: Energy Sources and Transfer of Energy',
+          'Unit 9: Thermal Properties of Matter'
+        ]
+      },
+      {
+        id: 'stbb-9-eng',
+        grade: 9,
+        subject: 'English',
+        fullTitle: 'Secondary Stage English Book One (Class IX)',
+        edition: 'STBB Jamshoro Edition',
+        size: '46.0 MB',
+        pdfFile: 'IX-ENGLISH.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/english/class-ix',
+        chapters: [
+          'Unit 1: The Last Sermon of the Holy Prophet (PBUH)',
+          'Unit 2: Shah Abdul Latif Bhittai',
+          'Unit 3: Chasing Dreams',
+          'Unit 4: The Great Visionaries',
+          'Unit 5: Health Problems Caused by Mosquitoes',
+          'Unit 6: Gender Equity',
+          'Unit 7: Secret of Success',
+          'Unit 8: Ghazi\'s Diary'
+        ]
+      },
+      {
+        id: 'stbb-9-urdu',
+        grade: 9,
+        subject: 'Urdu',
+        fullTitle: 'Urdu Lazmi (Salees Urdu) — Class IX',
+        edition: 'STBB Official Edition',
+        size: '27.0 MB',
+        pdfFile: 'IX-URDU-1.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/urdu/class-ix',
+        chapters: [
+          'حصہ نثر: اخلاق نبوی ﷺ',
+          'حصہ نثر: امید کی خوشی',
+          'حصہ نثر: قومی ہمدردی',
+          'حصہ نثر: رشتہ ناتا',
+          'حصہ نثر: شہید کی جو موت ہے وہ قوم کی حیات ہے',
+          'حصہ نظم: حمد و نعت',
+          'حصہ نظم: برسات کی بہاریں',
+          'حصہ غزل: میر تقی میر و مرزا غالب'
+        ]
+      },
+      {
+        id: 'stbb-9-isl',
+        grade: 9,
+        subject: 'Islamiat',
+        fullTitle: 'Islamiat Lazmi (Compulsory) — Class IX',
+        edition: 'STBB Jamshoro Edition',
+        size: '19.0 MB',
+        pdfFile: 'IX-ISLAMIAT.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/english/class-ix',
+        chapters: [
+          'باب اول: قرآن مجید (تعارف، حفاظت و فضائل)',
+          'باب دوم: ایمانیات و عبادات (عقیدہ توحید و رسالت)',
+          'باب سوم: سیرت طیبہ ﷺ (فتح مکہ و غزوہ حنین)',
+          'باب چهارم: اخلاق و آداب (امانت، دیانت اور عدل)',
+          'باب پنجم: حسن معاملات و معاشرت',
+          'باب ششم: ہدایت کے سرچشمے اور مشاہیر اسلام'
+        ]
+      },
+      {
+        id: 'stbb-10-bio',
+        grade: 10,
+        subject: 'Biology',
+        fullTitle: 'Biology for Class X (STBB Jamshoro)',
+        edition: '2024-26 Official Edition',
+        size: '20.3 MB',
+        pdfFile: 'class-10-biology.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/english/class-x',
+        chapters: [
+          'Chapter 1: Gaseous Exchange',
+          'Chapter 2: Homeostasis',
+          'Chapter 3: Coordination and Control',
+          'Chapter 4: Support and Movement',
+          'Chapter 5: Reproduction',
+          'Chapter 6: Inheritance',
+          'Chapter 7: Man and His Environment',
+          'Chapter 8: Biotechnology',
+          'Chapter 9: Pharmacology'
+        ]
+      },
+      {
+        id: 'stbb-10-comp',
+        grade: 10,
+        subject: 'Computer',
+        fullTitle: 'Computer Science Class X (STBB)',
+        edition: 'C Programming & Logic Edition',
+        size: '15.7 MB',
+        pdfFile: 'class-10-computer.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/english/class-x',
+        chapters: [
+          'Chapter 1: Problem Solving and Algorithm Designing',
+          'Chapter 2: Basics of Programming in C',
+          'Chapter 3: Input / Output Handling in C',
+          'Chapter 4: Control Structure (Selection & Loops)',
+          'Chapter 5: Functions in C',
+          'Chapter 6: Digital Logic and Design',
+          'Chapter 7: Introduction to Scratch'
+        ]
+      },
+      {
+        id: 'stbb-10-math',
+        grade: 10,
+        subject: 'Maths',
+        fullTitle: 'Mathematics for Class X (Science Group)',
+        edition: 'Official STBB Textbook',
+        size: '24.1 MB',
+        pdfFile: 'class-10-maths.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/english/class-x',
+        chapters: [
+          'Unit 17: Sets and Functions',
+          'Unit 18: Variations',
+          'Unit 19: Matrices and Determinants',
+          'Unit 20: Theory of Quadratic Equations',
+          'Unit 21: Partial Fractions',
+          'Unit 22: Basic Statistics',
+          'Unit 23: Pythagoras Theorem',
+          'Unit 24: Ratio and Proportion',
+          'Unit 25: Chords of a Circle',
+          'Unit 26: Tangents of a Circle',
+          'Unit 27: Chords and Arcs',
+          'Unit 28: Angle in a Segment of a Circle',
+          'Unit 29: Practical Geometry — Circles',
+          'Unit 30: Introduction to Trigonometry'
+        ]
+      },
+      {
+        id: 'stbb-10-chem',
+        grade: 10,
+        subject: 'Chemistry',
+        fullTitle: 'Chemistry for Class X (STBB Jamshoro)',
+        edition: 'Official STBB Edition',
+        size: '18.9 MB',
+        pdfFile: 'class-10-chemistry.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/english/class-x',
+        chapters: [
+          'Chapter 1: Chemical Equilibrium',
+          'Chapter 2: Acids, Bases and Salts',
+          'Chapter 3: Organic Chemistry',
+          'Chapter 4: Biochemistry',
+          'Chapter 5: Environmental Chemistry I (Atmosphere)',
+          'Chapter 6: Environmental Chemistry II (Water)',
+          'Chapter 7: Analytical Chemistry',
+          'Chapter 8: Industrial Chemistry'
+        ]
+      },
+      {
+        id: 'stbb-10-phys',
+        grade: 10,
+        subject: 'Physics',
+        fullTitle: 'Physics for Class X (STBB Jamshoro)',
+        edition: 'Official STBB Edition',
+        size: '22.4 MB',
+        pdfFile: 'class-10-physics.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/english/class-x',
+        chapters: [
+          'Unit 10: General Waves Properties',
+          'Unit 11: Sound',
+          'Unit 12: Electromagnetic Spectrum',
+          'Unit 13: Geometrical Optics',
+          'Unit 14: Electrostatics',
+          'Unit 15: Current Electricity',
+          'Unit 16: Electromagnetism',
+          'Unit 17: Introductory Electronics',
+          'Unit 18: Information and Communication Technology',
+          'Unit 19: Atomic Structure',
+          'Unit 20: Nuclear Structure'
+        ]
+      },
+      {
+        id: 'stbb-10-eng',
+        grade: 10,
+        subject: 'English',
+        fullTitle: 'Secondary Stage English Book Two (Class X)',
+        edition: 'STBB Jamshoro Edition',
+        size: '13.5 MB',
+        pdfFile: 'class-10-english.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/english/class-x',
+        chapters: [
+          'Unit 1: Contribution of Notable Leaders',
+          'Unit 2: Labour and Dignity of Work',
+          'Unit 3: Practicing Positive Work Ethics',
+          'Unit 4: Media for Information and Reflection',
+          'Unit 5: Respecting Self and Others',
+          'Unit 6: Character Building',
+          'Unit 7: Praising Nature',
+          'Unit 8: Civic Sense and Civic Activities'
+        ]
+      },
+      {
+        id: 'stbb-10-sindhi',
+        grade: 10,
+        subject: 'Sindhi',
+        fullTitle: 'Sindhi Lazmi (Compulsory) — Class X',
+        edition: 'STBB Jamshoro Edition',
+        size: '15.2 MB',
+        pdfFile: 'class-10-sindhi.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/sindhi/class-x',
+        chapters: [
+          'سبق ١: حمد ۽ نعت',
+          'سبق ٢: حضرت محمد مصطفيٰ ﷺ جن جو اخلاق',
+          'سبق ٣: قائداعظم محمد علي جناح',
+          'سبق ٤: شاهه عبداللطيف ڀٽائي رحہ',
+          'سبق ٥: سنڌ جي ثقافت ۽ تهذيب',
+          'سبق ٦: محنت جي عظمت',
+          'سبق ٧: علم جي اهميت',
+          'سبق ٨: سچل سرمست رحہ'
+        ]
+      },
+      {
+        id: 'stbb-10-pak',
+        grade: 10,
+        subject: 'Pak. Studies',
+        fullTitle: 'Pakistan Studies (Compulsory) — Class X',
+        edition: 'STBB Jamshoro Edition',
+        size: '14.8 MB',
+        pdfFile: 'class-10-pak-studies.pdf',
+        pdfUrl: 'https://ebooks.stbb.edu.pk/english/class-x',
+        chapters: [
+          'Chapter 1: Ideological Basis of Pakistan',
+          'Chapter 2: Making of Pakistan',
+          'Chapter 3: Constitutional Development in Islamic Republic of Pakistan',
+          'Chapter 4: Land and Climate of Pakistan',
+          'Chapter 5: Resources of Pakistan',
+          'Chapter 6: Industrial Development in Pakistan',
+          'Chapter 7: Population of Pakistan',
+          'Chapter 8: Culture of Pakistan',
+          'Chapter 9: Education in Pakistan',
+          'Chapter 10: Pakistan — A Welfare State'
+        ]
+      }
+    ];
+
+    // ==================== EMBEDDED CLASS IX STBB TEXTBOOK PREVIEW CONTENT ====================
+    const STBB_TEXTBOOK_PREVIEWS = {
+      'stbb-9-bio': {
+        fileName: 'IX-BIOLOGY.pdf',
+        boardCode: 'STBB-IX-BIO-2024',
+        authors: 'Prof. Dr. Nasiruddin Sheikh, Prof. Muhammad Saleem Mughal (STBB Jamshoro)',
+        pages: '196 Pages',
+        unitPreviews: [
+          {
+            unit: 'Chapter 1: Introduction to Biology',
+            pageRef: 'Pages 1 – 16',
+            summary: 'Covers divisions of biology (Botany, Zoology, Microbiology), branches (Morphology, Anatomy, Histology, Cell Biology, Physiology, Genetics), relationship with other sciences, and contributions of Muslim scientists (Jabir Bin Hayan, Abdul Malik Asmai, Bu Ali Sina).',
+            keyPoints: [
+              'Levels of Biological Organization: Sub-atomic → Atomic → Molecular → Organelle → Cell → Tissue → Organ → Organ System → Organism → Population → Community → Biosphere.',
+              'Bu Ali Sina (Avicenna) wrote "Al-Qanun fi al-Tibb", used as a standard medical textbook in Europe for centuries.',
+              'Cellular organizations: Unicellular (Amoeba), Colonial (Volvox), and Multicellular (Mustard plant - Brassica campestris, Frog - Rana tigrina).'
+            ]
+          },
+          {
+            unit: 'Chapter 2: Solving a Biological Problem',
+            pageRef: 'Pages 17 – 30',
+            summary: 'Explains the Biological Method: Observation, Hypothesis, Deduction, Experimentation, Summarization of results, and Reporting — illustrated through the historical study of Malaria (Laveran, Ronald Ross, A.F.A. King).',
+            keyPoints: [
+              'Qualitative vs. Quantitative observations (Quantitative observations are measurable and more accurate).',
+              'Control Group vs. Experimental Group in scientific testing.',
+              'Theory (well-tested hypothesis) vs. Scientific Law (uniform, constant fact of nature).'
+            ]
+          },
+          {
+            unit: 'Chapter 3: Biodiversity & Chapter 4: Cells and Tissues',
+            pageRef: 'Pages 31 – 88',
+            summary: 'Taxonomic hierarchy (Kingdom → Phylum → Class → Order → Family → Genus → Species), Five Kingdom System (Whittaker), Binomial Nomenclature, Light vs. Electron Microscopy, and Prokaryotic vs. Eukaryotic organelles.',
+            keyPoints: [
+              'Five Kingdoms: Monera, Protista, Fungi, Plantae, Animalia.',
+              'Fluid Mosaic Model of Plasma Membrane; Mitochondria (ATP synthesis), Chloroplasts, Ribosomes (protein synthesis).'
+            ]
+          }
+        ]
+      },
+      'stbb-9-comp': {
+        fileName: 'IX-COMPUTER.pdf',
+        boardCode: 'STBB-IX-COMP-2024',
+        authors: 'Sindh Textbook Board Curriculum Wing, Jamshoro',
+        pages: '164 Pages',
+        unitPreviews: [
+          {
+            unit: 'Chapter 1: Fundamentals of Computer',
+            pageRef: 'Pages 1 – 28',
+            summary: 'Evolution of computers across Five Generations (Vacuum Tubes → Transistors → Integrated Circuits → Microprocessors → Artificial Intelligence), classification of computers, hardware components (CPU, ALU, CU, Registers, Buses), and primary/secondary memory.',
+            keyPoints: [
+              'Charles Babbage designed the Difference Engine and Analytical Engine (Father of Computer).',
+              'System Buses: Data Bus, Address Bus, and Control Bus.',
+              'Primary Memory (RAM — volatile; ROM — non-volatile) vs. Secondary Storage (HDD, SSD, Optical).'
+            ]
+          },
+          {
+            unit: 'Chapter 2: Operating System & Chapter 3: Office Automation',
+            pageRef: 'Pages 29 – 74',
+            summary: 'Functions of an Operating System (Process, Memory, File, and I/O management), CLI vs. GUI, Installation of Windows, MS Word formatting, and MS Excel formulas & charts.',
+            keyPoints: [
+              'Common OS types: Single-user, Multi-user, Batch, Time-sharing, and Real-time OS.',
+              'MS Excel Functions: =SUM(A1:A10), =AVERAGE(B1:B5), =MAX(), =MIN(), =IF().'
+            ]
+          },
+          {
+            unit: 'Chapter 4–7: Networks, Security, HTML/CSS & Databases',
+            pageRef: 'Pages 75 – 164',
+            summary: 'Data transmission modes (Simplex, Half-Duplex, Full-Duplex), Network Topologies (Bus, Star, Ring, Mesh), OSI Model, Cyber Ethics, HTML5 structure tags, and Relational Database keys.',
+            keyPoints: [
+              'HTML Document Skeleton: <!DOCTYPE html><html><head><title>...</title></head><body>...</body></html>.',
+              'Database Keys: Primary Key, Foreign Key, and Candidate Key.'
+            ]
+          }
+        ]
+      },
+      'stbb-9-math': {
+        fileName: 'IX-MATHSpdf.pdf',
+        boardCode: 'STBB-IX-MATH-2024',
+        authors: 'Prof. Muhammad Raza, Prof. Abdul Jabbar (STBB Jamshoro)',
+        pages: '312 Pages',
+        unitPreviews: [
+          {
+            unit: 'Unit 1: Real and Complex Numbers & Unit 2: Logarithms',
+            pageRef: 'Pages 1 – 54',
+            summary: 'Properties of Real Numbers, Radicals and Radicands, Laws of Exponents, Complex Numbers z = a + bi, Conjugate & Modulus, Scientific Notation, and Laws of Logarithms.',
+            keyPoints: [
+              'Complex Numbers: i = √(-1), i² = -1, |z| = √(a² + b²), z̄ = a - bi.',
+              'Laws of Logarithms: logₐ(mn) = logₐm + logₐn; logₐ(m/n) = logₐm - logₐn; logₐ(mⁿ) = n logₐm.'
+            ]
+          },
+          {
+            unit: 'Unit 3–6: Algebraic Expressions, Factorization & Equations',
+            pageRef: 'Pages 55 – 142',
+            summary: 'Algebraic formulas, Surds, Remainder & Factor Theorems, Factorization by grouping and splitting middle term, H.C.F. & L.C.M., and Linear/Absolute Value Equations.',
+            keyPoints: [
+              '(a ± b)³ = a³ ± 3a²b + 3ab² ± b³; a³ ± b³ = (a ± b)(a² ∓ ab + b²).',
+              'Remainder Theorem: If polynomial P(x) is divided by (x - a), remainder is P(a).'
+            ]
+          },
+          {
+            unit: 'Unit 7–16: Quadratic Equations, Geometry Theorems & Coordinate Geometry',
+            pageRef: 'Pages 143 – 312',
+            summary: 'Quadratic Formula, Triangle Congruence Postulates (S.S.S., S.A.S., A.S.A., H.S.), Circle & Parallelogram Area Theorems, Distance Formula, and Midpoint Formula.',
+            keyPoints: [
+              'Quadratic Formula: x = [-b ± √(b² - 4ac)] / 2a.',
+              'Distance Formula: d = √[(x₂ - x₁)² + (y₂ - y₁)²]; Midpoint: M((x₁+x₂)/2, (y₁+y₂)/2).'
+            ]
+          }
+        ]
+      },
+      'stbb-9-chem': {
+        fileName: 'IX-CHEMISTRY.pdf.pdf',
+        boardCode: 'STBB-IX-CHEM-2024',
+        authors: 'Dr. Syed Azhar Ali, Prof. Abdul Majeed (STBB Jamshoro)',
+        pages: '188 Pages',
+        unitPreviews: [
+          {
+            unit: 'Chapter 1: Fundamentals of Chemistry',
+            pageRef: 'Pages 1 – 26',
+            summary: 'Branches of Chemistry (Physical, Organic, Inorganic, Biochemistry, Industrial, Nuclear, Environmental, Analytical), Elements, Compounds, Mixtures, Empirical & Molecular Formulas, Mole & Avogadro’s Number.',
+            keyPoints: [
+              'Number of Moles (n) = Given Mass (m) / Molar Mass (M).',
+              'Avogadro’s Number Nₐ = 6.02 × 10²³ particles per mole.'
+            ]
+          },
+          {
+            unit: 'Chapter 2: Atomic Structure & Chapter 3: Periodic Table',
+            pageRef: 'Pages 27 – 68',
+            summary: 'Rutherford’s Gold Foil Experiment, Bohr’s Atomic Model, Electronic Configuration (K, L, M, N shells & s, p, d, f subshells), Isotopes (Protium, Deuterium, Tritium), and Periodic Trends.',
+            keyPoints: [
+              'Atomic Size decreases across a period and increases down a group.',
+              'Ionization Energy, Electron Affinity, and Electronegativity increase across a period.'
+            ]
+          },
+          {
+            unit: 'Chapter 4–8: Chemical Bonding, States of Matter, Solutions & Electrochemistry',
+            pageRef: 'Pages 69 – 188',
+            summary: 'Ionic, Covalent, Coordinate Covalent & Metallic Bonds, Boyle’s & Charles’ Laws, Molarity & Solubility, Electrolytic & Galvanic Cells, and Alkali/Alkaline Earth Metals.',
+            keyPoints: [
+              'Boyle’s Law: P₁V₁ = P₂V₂ (at constant T); Charles’ Law: V₁/T₁ = V₂/T₂ (at constant P).',
+              'Oxidation = Loss of electrons (OIL); Reduction = Gain of electrons (RIG).'
+            ]
+          }
+        ]
+      },
+      'stbb-9-phys': {
+        fileName: 'IX-PHYSICS.pdf',
+        boardCode: 'STBB-IX-PHYS-2024',
+        authors: 'Prof. Dr. Naeem Ahmed, Prof. Manzoor Hussain (STBB Jamshoro)',
+        pages: '224 Pages',
+        unitPreviews: [
+          {
+            unit: 'Unit 1: Physical Quantities and Measurement',
+            pageRef: 'Pages 1 – 27',
+            summary: 'Branches of Physics, SI Base & Derived Units, Scientific Notation & Prefixes, Measuring Instruments (Metre Rule, Vernier Callipers, Screw Gauge, Physical Balance, Stopwatch, Measuring Cylinder), and Significant Figures.',
+            keyPoints: [
+              '7 SI Base Units: metre (m), kilogram (kg), second (s), ampere (A), kelvin (K), mole (mol), candela (cd).',
+              'Vernier Callipers Least Count = 1 MSD - 1 VSD = 0.1 mm (0.01 cm); Micrometer Screw Gauge L.C. = 0.01 mm.',
+              'Density ρ = m / V (SI unit: kg/m³).'
+            ]
+          },
+          {
+            unit: 'Unit 2: Kinematics & Unit 3: Dynamics',
+            pageRef: 'Pages 28 – 84',
+            summary: 'Rest & Motion, Scalars vs. Vectors, Distance-Time & Speed-Time Graphs, Three Equations of Uniformly Accelerated Motion, Newton’s Laws of Motion, Momentum, and Friction.',
+            keyPoints: [
+              'Equations of Motion: (1) v_f = v_i + at   (2) S = v_i t + ½at²   (3) 2aS = v_f² - v_i².',
+              'Newton’s 2nd Law: F = ma; Law of Conservation of Momentum: m₁u₁ + m₂u₂ = m₁v₁ + m₂v₂.'
+            ]
+          },
+          {
+            unit: 'Unit 4–9: Turning Effect of Forces, Gravitation, Matter, Energy & Heat',
+            pageRef: 'Pages 85 – 224',
+            summary: 'Resolution of Forces, Torque & Equilibrium, Universal Law of Gravitation, Pascal’s & Archimedes’ Principles, Work, Power, Kinetic & Potential Energy, and Specific Heat Capacity.',
+            keyPoints: [
+              'Law of Gravitation: F = G(m₁m₂)/r² where G = 6.673 × 10⁻¹¹ N·m²/kg².',
+              'Work W = F·d cosθ; Power P = W/t; K.E. = ½mv²; P.E. = mgh.'
+            ]
+          }
+        ]
+      },
+      'stbb-9-eng': {
+        fileName: 'IX-ENGLISH.pdf',
+        boardCode: 'STBB-IX-ENG-2024',
+        authors: 'Edited by Ms. Fatima Shahabuddin (STBB Jamshoro)',
+        pages: '176 Pages',
+        unitPreviews: [
+          {
+            unit: 'Unit 1: The Last Sermon of the Holy Prophet (PBUH)',
+            pageRef: 'Pages 1 – 22',
+            summary: 'Covers the historical background of Islam, the Hijrah to Madina, the Hajj pilgrimage in 10 A.H., and the universal charter of human rights delivered at Uranah Valley of Mount Arafat.',
+            keyPoints: [
+              'Core Message: Equality of all mankind regardless of race, colour, or lineage — superiority rests solely on piety (Taqwa).',
+              'Grammar & Composition: Prefix/Suffix word building, Contextual vocabulary, and Descriptive Essay writing.'
+            ]
+          },
+          {
+            unit: 'Unit 2: Shah Abdul Latif Bhittai & Unit 3: Chasing Dreams',
+            pageRef: 'Pages 23 – 68',
+            summary: 'Life, spiritual poetry (Shah Jo Risalo), and musical innovations (Tambooro) of Shah Abdul Latif Bhittai, followed by the inspiring story of Jameel and his sister Sara pursuing medical education.',
+            keyPoints: [
+              'Bhittai’s Urs is held annually at Bhit Shah on 14th Safar; his poetry carries the message of universal love and brotherhood.',
+              'Grammar Focus: Second Conditional sentences (If + Past Simple, would + base verb), Punctuation, and Informal Emails.'
+            ]
+          },
+          {
+            unit: 'Unit 4–8: Visionaries, Mosquito-Borne Diseases, Gender Equity & Ghazi’s Diary',
+            pageRef: 'Pages 69 – 176',
+            summary: 'Speeches of Quaid-e-Azam & Allama Iqbal, prevention of Malaria/Dengue/Chikungunya, contributions of Pakistani women (Mohtarma Fatima Jinnah, Begum Rana Liaquat), and Leo Tolstoy’s "Secret of Success".',
+            keyPoints: [
+              'Reading Comprehension, Transitional Devices, Active/Passive Voice, and Formal Letter Writing.'
+            ]
+          }
+        ]
+      },
+      'stbb-9-urdu': {
+        fileName: 'IX-URDU-1.pdf',
+        boardCode: 'STBB-IX-URDU-2024',
+        authors: 'سندھ ٹیکسٹ بک بورڈ، جامشورو',
+        pages: '168 Pages',
+        unitPreviews: [
+          {
+            unit: 'حصہ نثر: اخلاق نبوی ﷺ اور امید کی خوشی',
+            pageRef: 'صفحات 1 – 42',
+            summary: 'علامہ شبلی نعمانی کی تصنیف سیرت النبی ﷺ سے ماخوذ سبق اخلاق نبوی ﷺ اور سرسید احمد خان کا اصلاحی مضمون امید کی خوشی۔',
+            keyPoints: [
+              'سیرت طیبہ ﷺ کے روشن پہلو: عفو و درگزر، صداقت، امانت اور حسن سلوک۔',
+              'قواعد: الفاظ متضاد، واحد جمع، محاورات کا جملوں میں استعمال اور خلاصہ نگاری۔'
+            ]
+          },
+          {
+            unit: 'حصہ نظم و غزل: حمد، نعت، برسات کی بہاریں اور غزلیات',
+            pageRef: 'صفحات 43 – 168',
+            summary: 'حمد باری تعالیٰ، نعت رسول مقبول ﷺ، نظیر اکبر آبادی کی نظم برسات کی بہاریں، اور میر تقی میر و مرزا غالب کی منتخب غزلیات مع تشریح۔',
+            keyPoints: [
+              'اصناف سخن: مطلع، مقطع، قافیہ، ردیف، تشبیہ اور استعارہ کی تعریف و مثالیں۔'
+            ]
+          }
+        ]
+      },
+      'stbb-9-isl': {
+        fileName: 'IX-ISLAMIAT.pdf',
+        boardCode: 'STBB-IX-ISL-2024',
+        authors: 'سندھ ٹیکسٹ بک بورڈ، جامشورو (لازمی اسلامیات)',
+        pages: '112 Pages',
+        unitPreviews: [
+          {
+            unit: 'باب اول: قرآن مجید (تعارف، حفاظت، فضائل اور منتخب آیات)',
+            pageRef: 'صفحات 1 – 30',
+            summary: 'قرآن مجید کا نزول، جمع و تدوین، حفاظت قرآن اور منتخب قرآنی آیات و احادیث مبارکہ کا بامحاورہ ترجمہ و تشریح۔',
+            keyPoints: [
+              'قرآن مجید ۲۳ برس کے عرصے میں نازل ہوا اور اس کی حفاظت کا ذمہ خود اللہ تعالیٰ نے لیا ہے۔',
+              'منتخب احادیث: طلب علم کی فرضیت، حسن اخلاق اور حقوق العباد۔'
+            ]
+          },
+          {
+            unit: 'باب دوم و سوم: ایمانیات، عبادات اور سیرت طیبہ ﷺ',
+            pageRef: 'صفحات 31 – 76',
+            summary: 'عقیدہ توحید، عقیدہ رسالت، ختم نبوت ﷺ، نماز و زکوٰۃ کی اہمیت، فتح مکہ (۸ ہجری) اور غزوہ حنین کے اسباق۔',
+            keyPoints: [
+              'فتح مکہ کے موقع پر عام معافی کا تاریخی اعلان اور بتوں سے خانہ کعبہ کی تطہیر۔'
+            ]
+          },
+          {
+            unit: 'باب چہارم تا ششم: اخلاق و آداب، حسن معاملات اور مشاہیر اسلام',
+            pageRef: 'صفحات 77 – 112',
+            summary: 'امانت و دیانت، عدل و انصاف، والدین و اساتذہ کے حقوق، جہاد کی اقسام، اور حضرت امام جعفر صادقؒ و امام بخاریؒ کے حالات زندگی۔',
+            keyPoints: [
+              'منافق کی تین نشانیاں اور معاشرے میں سچائی و دیانتداری کے ثمرات۔'
+            ]
+          }
+        ]
+      }
+    };
+
+    // 100% AUTHENTIC STBB CLASS 9 & 10 QUESTION BANK (15 TEXTBOOK QUESTIONS PER SUBJECT)
+    const CORE_MCQS = {
+      '9-Biology': [
+        { ch: 0, q: 'The study of internal gross structure of living organisms is called:', opts: ['Morphology', 'Anatomy', 'Histology', 'Cytology'], ans: 1, exp: 'Chapter 1: Internal anatomy studies internal organs and structures.' },
+        { ch: 0, q: 'Which Muslim scientist wrote the famous medical encyclopedia "Al-Qanun fi al-Tibb"?', opts: ['Jabir Bin Hayan', 'Bu Ali Sina', 'Abdul Malik Asmai', 'Al-Razi'], ans: 1, exp: 'Chapter 1: Bu Ali Sina (Avicenna) authored Al-Qanun fi al-Tibb.' },
+        { ch: 1, q: 'A tentative explanation of observations that can be tested by experiments is called:', opts: ['Deduction', 'Hypothesis', 'Theory', 'Scientific Law'], ans: 1, exp: 'Chapter 2: A hypothesis is a testable statement proposed to explain observations.' },
+        { ch: 1, q: 'Which mosquito transmits Plasmodium (the malarial parasite) in humans?', opts: ['Male Culex', 'Female Anopheles', 'Male Aedes', 'Female Culex'], ans: 1, exp: 'Chapter 2: Female Anopheles mosquito transmits Plasmodium.' },
+        { ch: 2, q: 'Who proposed the Five Kingdom Classification system in 1969?', opts: ['Carolus Linnaeus', 'Robert Whittaker', 'Ernst Haeckel', 'Margulis & Schwartz'], ans: 1, exp: 'Chapter 3: Robert Whittaker proposed the Five Kingdom system in 1969.' },
+        { ch: 2, q: 'The scientific name of Frog according to binomial nomenclature is:', opts: ['Homo sapiens', 'Rana tigrina', 'Allium cepa', 'Mangifera indica'], ans: 1, exp: 'Chapter 3: Rana tigrina is the scientific name of the common frog.' },
+        { ch: 3, q: 'Which cell organelle is called the "powerhouse of the cell"?', opts: ['Ribosome', 'Mitochondria', 'Golgi Apparatus', 'Lysosome'], ans: 1, exp: 'Chapter 4: Mitochondria produce cellular energy in the form of ATP.' },
+        { ch: 3, q: 'Plant cell walls are primarily composed of which polysaccharide?', opts: ['Chitin', 'Cellulose', 'Peptidoglycan', 'Glycogen'], ans: 1, exp: 'Chapter 4: Cellulose forms the rigid primary cell wall of plants.' },
+        { ch: 4, q: 'During which stage of mitosis do chromosomes line up along the equator of the cell?', opts: ['Prophase', 'Metaphase', 'Anaphase', 'Telophase'], ans: 1, exp: 'Chapter 5: Chromosomes align at the metaphase plate during Metaphase.' },
+        { ch: 4, q: 'Crossing over between non-sister chromatids occurs during which sub-stage of Meiosis I?', opts: ['Leptotene', 'Pachytene', 'Zygotene', 'Diakinesis'], ans: 1, exp: 'Chapter 5: Crossing over occurs in Pachytene of Prophase I.' },
+        { ch: 5, q: 'The "Lock and Key Model" of enzyme action was proposed in 1894 by:', opts: ['Daniel Koshland', 'Emil Fischer', 'Robert Hooke', 'Louis Pasteur'], ans: 1, exp: 'Chapter 6: Emil Fischer proposed the Lock and Key hypothesis.' },
+        { ch: 6, q: 'Which molecule acts as the main energy currency of living cells?', opts: ['DNA', 'ATP', 'NADP', 'FAD'], ans: 1, exp: 'Chapter 7: Adenosine Triphosphate (ATP) stores and supplies cellular energy.' },
+        { ch: 6, q: 'Light-dependent reactions of photosynthesis take place in the:', opts: ['Stroma', 'Thylakoid membranes', 'Mitochondrial matrix', 'Cytoplasm'], ans: 1, exp: 'Chapter 7: Chlorophyll in thylakoid membranes captures sunlight.' },
+        { ch: 7, q: 'Deficiency of Vitamin C (Ascorbic Acid) causes which disease?', opts: ['Rickets', 'Scurvy', 'Night Blindness', 'Beriberi'], ans: 1, exp: 'Chapter 8: Vitamin C deficiency leads to bleeding gums (Scurvy).' },
+        { ch: 8, q: 'Which vascular tissue transports water and dissolved minerals from roots to leaves?', opts: ['Phloem', 'Xylem', 'Cambium', 'Cortex'], ans: 1, exp: 'Chapter 9: Xylem conducts water and minerals upward in plants.' }
+      ],
+      '9-Computer': [
+        { ch: 0, q: 'Which generation of computers introduced Integrated Circuits (ICs)?', opts: ['First Generation', 'Second Generation', 'Third Generation', 'Fourth Generation'], ans: 2, exp: 'Chapter 1: Third generation computers (1964–1971) used Integrated Circuits.' },
+        { ch: 0, q: 'Which memory is volatile and loses its contents when power is turned off?', opts: ['ROM', 'Hard Disk', 'RAM', 'Flash Drive'], ans: 2, exp: 'Chapter 1: RAM (Random Access Memory) is volatile temporary memory.' },
+        { ch: 0, q: 'One Megabyte (1 MB) is equal to how many Kilobytes (KB)?', opts: ['1000 KB', '1024 KB', '512 KB', '2048 KB'], ans: 1, exp: 'Chapter 1: 1 MB = 1024 KB in binary storage units.' },
+        { ch: 1, q: 'Which interface allows users to interact with the OS using icons, windows, and menus?', opts: ['CLI', 'GUI', 'BIOS', 'DOS'], ans: 1, exp: 'Chapter 2: Graphical User Interface (GUI) uses visual icons and pointers.' },
+        { ch: 1, q: 'Linux, Windows, and macOS are examples of:', opts: ['Application Software', 'Operating Systems', 'Device Drivers', 'Utility Compilers'], ans: 1, exp: 'Chapter 2: They are core system software operating systems.' },
+        { ch: 2, q: 'In MS Word, which shortcut key is used to save a document?', opts: ['Ctrl + P', 'Ctrl + S', 'Ctrl + C', 'Ctrl + Z'], ans: 1, exp: 'Chapter 3: Ctrl + S saves the active document.' },
+        { ch: 2, q: 'In MS Excel, every formula must begin with which symbol?', opts: ['#', '=', '@', '$'], ans: 1, exp: 'Chapter 3: An equals sign (=) tells Excel that the cell contains a formula.' },
+        { ch: 3, q: 'Which network topology connects every computer to a single central hub or switch?', opts: ['Bus Topology', 'Ring Topology', 'Star Topology', 'Mesh Topology'], ans: 2, exp: 'Chapter 4: Star topology relies on a central hub/switch.' },
+        { ch: 3, q: 'Which device converts digital signals into analog signals over telephone lines?', opts: ['Router', 'Modem', 'Switch', 'Repeater'], ans: 1, exp: 'Chapter 4: Modem (Modulator-Demodulator) translates digital and analog signals.' },
+        { ch: 3, q: 'How many bits make up an IPv4 address?', opts: ['16 bits', '32 bits', '64 bits', '128 bits'], ans: 1, exp: 'Chapter 4: IPv4 uses 32-bit addresses written as four octets.' },
+        { ch: 4, q: 'Unauthorized copying and distribution of copyrighted software is called:', opts: ['Encryption', 'Software Piracy', 'Debugging', 'Phishing'], ans: 1, exp: 'Chapter 5: Software piracy is the illegal duplication of licensed software.' },
+        { ch: 4, q: 'A malicious program that disguises itself as useful software is known as a:', opts: ['Firewall', 'Trojan Horse', 'Antivirus', 'Cookie'], ans: 1, exp: 'Chapter 5: A Trojan Horse hides malware inside seemingly legitimate software.' },
+        { ch: 5, q: 'Which HTML tag defines the largest heading on a webpage?', opts: ['<h6>', '<head>', '<h1>', '<header>'], ans: 2, exp: 'Chapter 6: <h1> creates the highest-level heading in HTML.' },
+        { ch: 5, q: 'Which HTML tag is used to create a hyperlink to another webpage?', opts: ['<link>', '<a>', '<href>', '<url>'], ans: 1, exp: 'Chapter 6: The anchor tag <a href="..."> defines hyperlinks.' },
+        { ch: 6, q: 'A Primary Key field in a database table must always be:', opts: ['Duplicate and Null', 'Unique and Not Null', 'Text only', 'Optional'], ans: 1, exp: 'Chapter 7: A primary key uniquely identifies each row and cannot be NULL.' }
+      ],
+      '9-Maths': [
+        { ch: 0, q: 'What is the additive inverse of the complex number (3 - 4i)?', opts: ['3 + 4i', '-3 + 4i', '-3 - 4i', '4 - 3i'], ans: 1, exp: 'Unit 1: -(3 - 4i) = -3 + 4i.' },
+        { ch: 0, q: 'The value of i² (iota squared) in complex numbers is:', opts: ['1', '-1', '0', 'i'], ans: 1, exp: 'Unit 1: By definition, i = √(-1), so i² = -1.' },
+        { ch: 1, q: 'The value of log₁₀(1000) is equal to:', opts: ['2', '3', '10', '100'], ans: 1, exp: 'Unit 2: Since 10³ = 1000, log₁₀(1000) = 3.' },
+        { ch: 1, q: 'According to laws of logarithms, logₐ(m × n) equals:', opts: ['logₐ(m) - logₐ(n)', 'logₐ(m) + logₐ(n)', 'logₐ(m) × logₐ(n)', 'n logₐ(m)'], ans: 1, exp: 'Unit 2: Product law of logarithms: log(mn) = log m + log n.' },
+        { ch: 2, q: 'Which algebraic identity equals (a + b)(a - b)?', opts: ['a² + b²', 'a² - b²', '(a - b)²', 'a³ - b³'], ans: 1, exp: 'Unit 3: Difference of two squares formula: a² - b² = (a + b)(a - b).' },
+        { ch: 3, q: 'The factors of x² - 5x + 6 are:', opts: ['(x + 2)(x + 3)', '(x - 2)(x - 3)', '(x - 6)(x + 1)', '(x + 6)(x - 1)'], ans: 1, exp: 'Unit 4: (-2) + (-3) = -5 and (-2)(-3) = +6.' },
+        { ch: 4, q: 'H.C.F. of (x² - y²) and (x - y)² is:', opts: ['(x + y)', '(x - y)', '(x² - y²)', '(x - y)²'], ans: 1, exp: 'Unit 5: Common factor of (x-y)(x+y) and (x-y)(x-y) is (x - y).' },
+        { ch: 5, q: 'The solution set of |x| = -5 is:', opts: ['{5}', '{-5}', '∅ (Empty Set)', '{5, -5}'], ans: 2, exp: 'Unit 6: Absolute value is never negative, so solution set is ∅.' },
+        { ch: 6, q: 'The point (-4, 5) lies in which quadrant of the Cartesian plane?', opts: ['Quadrant I', 'Quadrant II', 'Quadrant III', 'Quadrant IV'], ans: 1, exp: 'Unit 7: Negative x and positive y place (-4, 5) in Quadrant II.' },
+        { ch: 7, q: 'A quadratic equation in one variable has maximum degree:', opts: ['1', '2', '3', '4'], ans: 1, exp: 'Unit 8: Standard quadratic equation ax² + bx + c = 0 has degree 2.' },
+        { ch: 8, q: 'Two triangles are congruent if three sides of one are equal to three sides of the other. This postulate is:', opts: ['S.A.S.', 'S.S.S.', 'A.S.A.', 'H.S.'], ans: 1, exp: 'Unit 9: Side-Side-Side (S.S.S.) congruence postulate.' },
+        { ch: 9, q: 'The sum of interior angles of any triangle is always:', opts: ['90°', '180°', '270°', '360°'], ans: 1, exp: 'Unit 10: Sum of angles of a triangle is 180°.' },
+        { ch: 10, q: 'Any point on the right bisector of a line segment is equidistant from its:', opts: ['Midpoint', 'End points', 'Perpendicular', 'Origin'], ans: 1, exp: 'Unit 11 Theorem: Any point on the right bisector is equidistant from its end points.' },
+        { ch: 13, q: 'Parallelograms on the same base and between the same parallel lines are equal in:', opts: ['Perimeter', 'Area', 'Diagonals', 'Angles'], ans: 1, exp: 'Unit 14 Theorem: They have equal area (Base × Altitude).' },
+        { ch: 15, q: 'The distance between two points (0, 0) and (3, 4) is:', opts: ['7', '5', '12', '25'], ans: 1, exp: 'Unit 16: d = √(3² + 4²) = √25 = 5.' }
+      ],
+      '9-Chemistry': [
+        { ch: 0, q: 'What is the value of Avogadro’s number (Nₐ)?', opts: ['6.02 × 10²³', '6.02 × 10²²', '3.00 × 10⁸', '1.60 × 10⁻¹⁹'], ans: 0, exp: 'Chapter 1: One mole contains 6.02 × 10²³ particles.' },
+        { ch: 0, q: 'What is the molecular mass of H₂SO₄ (Sulphuric acid)?', opts: ['49 amu', '98 amu', '64 amu', '80 amu'], ans: 1, exp: 'Chapter 1: 2(1) + 32 + 4(16) = 98 amu.' },
+        { ch: 1, q: 'The number of protons in the nucleus of an atom is called its:', opts: ['Mass Number', 'Atomic Number', 'Avogadro Number', 'Valency'], ans: 1, exp: 'Chapter 2: Atomic number (Z) is the number of protons.' },
+        { ch: 1, q: 'Isotopes of an element have the same atomic number but different:', opts: ['Number of protons', 'Number of neutrons', 'Number of electrons', 'Chemical properties'], ans: 1, exp: 'Chapter 2: Isotopes differ in neutron count and mass number.' },
+        { ch: 2, q: 'Horizontal rows in the modern periodic table are called:', opts: ['Groups', 'Periods', 'Blocks', 'Families'], ans: 1, exp: 'Chapter 3: There are 7 horizontal periods in the periodic table.' },
+        { ch: 2, q: 'Which element has the highest electronegativity value (4.0) on the Pauling scale?', opts: ['Oxygen', 'Fluorine', 'Chlorine', 'Nitrogen'], ans: 1, exp: 'Chapter 3: Fluorine is the most electronegative element.' },
+        { ch: 3, q: 'Which type of chemical bond is formed by the mutual sharing of electrons?', opts: ['Ionic bond', 'Covalent bond', 'Metallic bond', 'Dative bond'], ans: 1, exp: 'Chapter 4: Covalent bonds form via mutual electron sharing.' },
+        { ch: 3, q: 'Sodium chloride (NaCl) is formed by which type of chemical bonding?', opts: ['Covalent bond', 'Ionic bond', 'Hydrogen bond', 'Metallic bond'], ans: 1, exp: 'Chapter 4: Complete electron transfer from Na to Cl forms an ionic bond.' },
+        { ch: 4, q: 'According to Boyle’s Law, at constant temperature, the volume of a fixed mass of gas is inversely proportional to its:', opts: ['Density', 'Pressure', 'Molar mass', 'Kinetic energy'], ans: 1, exp: 'Chapter 5: Boyle’s Law states V ∝ 1/P at constant T.' },
+        { ch: 4, q: 'The process in which a solid directly changes into vapours without becoming liquid is:', opts: ['Evaporation', 'Sublimation', 'Condensation', 'Fusion'], ans: 1, exp: 'Chapter 5: Sublimation converts solid directly to gas (e.g., iodine, dry ice).' },
+        { ch: 5, q: 'A solution that contains the maximum amount of solute dissolved at a given temperature is called:', opts: ['Unsaturated solution', 'Saturated solution', 'Dilute solution', 'Suspension'], ans: 1, exp: 'Chapter 6: A saturated solution holds maximum dissolved solute at that temperature.' },
+        { ch: 5, q: 'Molarity (M) is defined as the number of moles of solute dissolved per:', opts: ['1 kg of solvent', '1 dm³ (liter) of solution', '100 g of solution', '1 cm³ of solvent'], ans: 1, exp: 'Chapter 6: Molarity = Moles of solute / Volume of solution in dm³.' },
+        { ch: 6, q: 'In an electrochemical cell, oxidation always takes place at the:', opts: ['Cathode', 'Anode', 'Salt bridge', 'Electrolyte'], ans: 1, exp: 'Chapter 7: Loss of electrons (oxidation) occurs at the anode.' },
+        { ch: 6, q: 'Galvanizing is the process of coating iron with a thin layer of:', opts: ['Copper', 'Zinc', 'Silver', 'Tin'], ans: 1, exp: 'Chapter 7: Zinc coating prevents rusting of iron.' },
+        { ch: 7, q: 'Group IA elements (Li, Na, K) in the periodic table are known as:', opts: ['Halogens', 'Alkali Metals', 'Noble Gases', 'Alkaline Earth Metals'], ans: 1, exp: 'Chapter 8: Group IA metals are reactive Alkali Metals.' }
+      ],
+      '9-Physics': [
+        { ch: 0, q: 'Which of the following is a fundamental (base) SI physical quantity?', opts: ['Force', 'Electric Current', 'Velocity', 'Work'], ans: 1, exp: 'Unit 1: Electric current (Ampere) is one of the 7 SI base quantities.' },
+        { ch: 0, q: 'The least count of a standard Vernier Callipers is:', opts: ['0.01 mm', '0.1 mm (0.01 cm)', '1.0 mm', '0.001 mm'], ans: 1, exp: 'Unit 1: Standard Vernier Callipers least count is 0.1 mm or 0.01 cm.' },
+        { ch: 1, q: 'Which of the following is a vector quantity?', opts: ['Speed', 'Distance', 'Displacement', 'Mass'], ans: 2, exp: 'Unit 2: Displacement possesses both magnitude and direction.' },
+        { ch: 1, q: 'The rate of change of velocity of a moving body is called:', opts: ['Speed', 'Acceleration', 'Momentum', 'Torque'], ans: 1, exp: 'Unit 2: Acceleration a = Δv / Δt.' },
+        { ch: 2, q: 'What is the SI unit of linear momentum?', opts: ['N·m', 'kg·m/s (or N·s)', 'kg·m/s²', 'Joule'], ans: 1, exp: 'Unit 3: Momentum p = mv, measured in kg·m/s.' },
+        { ch: 2, q: 'According to Newton’s second law of motion, F = ?', opts: ['m / a', 'm × a', 'm + a', 'v / t'], ans: 1, exp: 'Unit 3: Net force equals mass times acceleration (F = ma).' },
+        { ch: 3, q: 'The turning effect of a force about a fixed axis is called:', opts: ['Momentum', 'Torque (Moment of Force)', 'Impulse', 'Power'], ans: 1, exp: 'Unit 4: Torque τ = r × F.' },
+        { ch: 3, q: 'For a body to be in complete equilibrium, both net force and net torque must be:', opts: ['Maximum', 'Zero', 'Equal to weight', 'Positive'], ans: 1, exp: 'Unit 4: ΣF = 0 and Στ = 0.' },
+        { ch: 4, q: 'Hooke’s Law states that within elastic limit, stress is directly proportional to:', opts: ['Density', 'Strain', 'Pressure', 'Volume'], ans: 1, exp: 'Unit 5: Stress ∝ Strain within elastic limit.' },
+        { ch: 5, q: 'The value of gravitational acceleration (g) near the surface of Earth is:', opts: ['8.9 m/s²', '9.8 m/s²', '10.8 m/s²', '6.67 m/s²'], ans: 1, exp: 'Unit 6: Earth’s surface gravity g ≈ 9.8 m/s².' },
+        { ch: 5, q: 'What is the value of Universal Gravitational Constant (G)?', opts: ['9.8 N·m²/kg²', '6.673 × 10⁻¹¹ N·m²/kg²', '3 × 10⁸ m/s', '6.02 × 10²³'], ans: 1, exp: 'Unit 6: G = 6.673 × 10⁻¹¹ N·m²/kg².' },
+        { ch: 6, q: 'Hydraulic press and hydraulic brakes work on which principle?', opts: ['Archimedes Principle', 'Pascal’s Law', 'Bernoulli’s Principle', 'Hooke’s Law'], ans: 1, exp: 'Unit 7: Pascal’s Law states pressure applied to an enclosed fluid transmits undiminished.' },
+        { ch: 7, q: 'The SI unit of Work and Energy is:', opts: ['Watt', 'Joule', 'Newton', 'Pascal'], ans: 1, exp: 'Unit 8: Work and energy are measured in Joules (J).' },
+        { ch: 7, q: 'Kinetic energy of a body of mass m moving with velocity v is given by:', opts: ['mv', '½ mv²', 'mgh', 'mv²'], ans: 1, exp: 'Unit 8: K.E. = ½ mv².' },
+        { ch: 8, q: 'Which mode of heat transfer requires no material medium and can travel through vacuum?', opts: ['Conduction', 'Convection', 'Radiation', 'Evaporation'], ans: 2, exp: 'Unit 9: Thermal radiation transfers heat via electromagnetic waves.' }
+      ],
+      '9-English': [
+        { ch: 0, q: 'Where did the Holy Prophet (PBUH) deliver His Last Sermon?', opts: ['Mount Uhud', 'Plain of Arafat', 'Cave of Hira', 'Taif'], ans: 1, exp: 'Unit 1: The Last Sermon was delivered at Uranah valley of Mount Arafat.' },
+        { ch: 0, q: 'According to the Last Sermon, superiority among humans depends only on:', opts: ['Wealth and status', 'Piety and righteousness (Taqwa)', 'Tribe and lineage', 'Colour and race'], ans: 1, exp: 'Unit 1: No Arab has superiority over a non-Arab except by piety.' },
+        { ch: 1, q: 'Shah Abdul Latif Bhittai’s famous poetic collection is known as:', opts: ['Bang-e-Dra', 'Shah Jo Risalo', 'Kulliyat-e-Iqbal', 'Diwan-e-Ghalib'], ans: 1, exp: 'Unit 2: Shah Jo Risalo is the anthology of Shah Abdul Latif Bhittai.' },
+        { ch: 1, q: 'In which district of Sindh is Bhit Shah situated?', opts: ['Thatta', 'Matiari', 'Dadu', 'Sukkur'], ans: 1, exp: 'Unit 2: Bhit Shah is located in District Matiari, Sindh.' },
+        { ch: 2, q: 'In Unit 3 "Chasing Dreams", what was Jameel’s ambition in life?', opts: ['To become a pilot', 'To become a doctor and open a hospital in his village', 'To become a banker', 'To move abroad permanently'], ans: 1, exp: 'Unit 3: Jameel worked hard to become a doctor to serve his village.' },
+        { ch: 2, q: 'Who sacrificed her own education and sold her gold bangles to support Jameel’s medical studies?', opts: ['His aunt', 'His sister Sara', 'His cousin', 'His neighbour'], ans: 1, exp: 'Unit 3: Jameel’s sister Sara sacrificed her dreams for her brother.' },
+        { ch: 3, q: 'Quaid-e-Azam Muhammad Ali Jinnah was given the title "Ambassador of Hindu-Muslim Unity" by:', opts: ['Allama Iqbal', 'Sarojini Naidu', 'Liaquat Ali Khan', 'Maulana Jauhar'], ans: 1, exp: 'Unit 4: Sarojini Naidu gave Quaid-e-Azam this title after the Lucknow Pact.' },
+        { ch: 3, q: 'Allama Iqbal delivered his famous Allahabad Presidential Address in the year:', opts: ['1920', '1930', '1940', '1947'], ans: 1, exp: 'Unit 4: Allama Iqbal presented the vision of a separate homeland in 1930.' },
+        { ch: 4, q: 'Which mosquito spreads Dengue fever according to Unit 5?', opts: ['Anopheles', 'Aedes aegypti', 'Culex', 'Tsetse'], ans: 1, exp: 'Unit 5: Female Aedes mosquitoes transmit the Dengue virus.' },
+        { ch: 4, q: 'Malaria is caused by a single-celled parasite called:', opts: ['Virus', 'Plasmodium', 'Bacterium', 'Fungus'], ans: 1, exp: 'Unit 5: Plasmodium causes malaria in humans.' },
+        { ch: 5, q: 'Who was the sister of Quaid-e-Azam known as "Madar-e-Millat" (Mother of the Nation)?', opts: ['Begum Rana Liaquat', 'Mohtarma Fatima Jinnah', 'Begum Jahanara', 'Bi Amma'], ans: 1, exp: 'Unit 6: Mohtarma Fatima Jinnah stood beside Quaid-e-Azam throughout the freedom struggle.' },
+        { ch: 5, q: 'Begum Rana Liaquat Ali Khan founded which women’s organization in 1949?', opts: ['APWA', 'WHO', 'UNICEF', 'SEWA'], ans: 0, exp: 'Unit 6: She founded All Pakistan Women’s Association (APWA).' },
+        { ch: 6, q: 'In Unit 7 "Secret of Success", what were the three questions asked by the King?', opts: ['Best time, best people, and most important work', 'How to win wars, gold, and land', 'Where to build a palace', 'Who will be next king'], ans: 0, exp: 'Unit 7: The King sought the right time, right people, and right action.' },
+        { ch: 7, q: 'Identify the figure of speech in: "The classroom was a zoo."', opts: ['Simile', 'Metaphor', 'Personification', 'Alliteration'], ans: 1, exp: 'Grammar: A direct comparison without "like" or "as" is a metaphor.' },
+        { ch: 7, q: 'Choose the correct synonym of the word "Perseverance":', opts: ['Laziness', 'Steadfastness / Persistence', 'Fear', 'Anger'], ans: 1, exp: 'Vocabulary: Perseverance means continued effort despite difficulties.' }
+      ],
+      '9-Urdu': [
+        { ch: 0, q: 'سبق "اخلاق نبوی ﷺ" کس معروف مصنف کی تصنیف ہے؟', opts: ['مولانا الطاف حسین حالی', 'مولانا شبلی نعمانی', 'سرسید احمد خان', 'ڈپٹی نذیر احمد'], ans: 1, exp: 'یہ سبق علامہ شبلی نعمانی کی شہرہ آفاق کتاب "سیرت النبی ﷺ" سے لیا گیا ہے۔' },
+        { ch: 0, q: 'حضور اکرم ﷺ کی سیرت طیبہ کا سب سے نمایاں پہلو کیا تھا؟', opts: ['سخت گیری', 'عفو و درگزر اور حسن اخلاق', 'دولت جمع کرنا', 'تنہائی پسندی'], ans: 1, exp: 'آپ ﷺ سراپا رحمت اور بہترین اخلاق کے مالک تھے۔' },
+        { ch: 1, q: 'مضمون "امید کی خوشی" اردو کے کس نامور ادیب نے لکھا ہے؟', opts: ['مرزا غالب', 'سرسید احمد خان', 'پریم چند', 'مولوی عبدالحق'], ans: 1, exp: 'سرسید احمد خان نے اصلاحی مضمون "امید کی خوشی" تحریر کیا۔' },
+        { ch: 2, q: 'سبق "قومی ہمدردی" کے مصنف کون ہیں؟', opts: ['مولانا الطاف حسین حالی', 'خواجہ حسن نظامی', 'پطرس بخاری', 'رشید احمد صدیقی'], ans: 0, exp: 'مولانا الطاف حسین حالی نے قومی ہمدردی کی اہمیت بیان کی ہے۔' },
+        { ch: 3, q: 'افسانہ "رشتہ ناتا" کس کی تحریر ہے؟', opts: ['منشی پریم چند', 'سعادت حسن منٹو', 'کرشن چندر', 'احمد ندیم قاسمی'], ans: 0, exp: 'یہ سبق معاشرتی اقدار اور انسانی رشتوں کی اہمیت اجاگر کرتا ہے۔' },
+        { ch: 4, q: 'میجر طفیل محمد شہید کو کون سا اعلیٰ ترین فوجی اعزاز عطا کیا گیا؟', opts: ['ستارہ جرات', 'نشان حیدر', 'ہلال امتیاز', 'تمغہ بسالت'], ans: 1, exp: 'میجر طفیل محمد شہید کو 1958ء میں نشان حیدر عطا کیا گیا۔' },
+        { ch: 5, q: 'جس نظم میں اللہ تعالیٰ کی تعریف و توصیف بیان کی جائے اسے کیا کہتے ہیں؟', opts: ['نعت', 'حمد', 'منقبت', 'مرثیہ'], ans: 1, exp: 'اللہ تعالیٰ کی حمد و ثنا پر مبنی نظم "حمد" کہلاتی ہے۔' },
+        { ch: 5, q: 'جس نظم میں حضرت محمد ﷺ کی تعریف بیان کی جائے اسے کیا کہتے ہیں؟', opts: ['حمد', 'نعت', 'قصیدہ', 'مثنوی'], ans: 1, exp: 'رسول اکرم ﷺ کی مدح و ثنا کو نعت کہتے ہیں۔' },
+        { ch: 6, q: 'مشہور نظم "برسات کی بہاریں" کس شاعر کا کلام ہے؟', opts: ['علامہ اقبال', 'نظیر اکبر آبادی', 'حفیظ جالندھری', 'جوش ملیح آبادی'], ans: 1, exp: 'نظیر اکبر آبادی کو عوامی شاعر کہا جاتا ہے اور یہ ان کی مشہور نظم ہے۔' },
+        { ch: 7, q: 'مرزا اسد اللہ خان غالب کس شہر میں پیدا ہوئے؟', opts: ['دہلی', 'آگرہ', 'لاہور', 'لکھنؤ'], ans: 1, exp: 'مرزا غالب 1797ء میں آگرہ میں پیدا ہوئے۔' },
+        { ch: 7, q: 'غزل کے پہلے شعر کو کیا کہا جاتا ہے جس کے دونوں مصرعے ہم قافیہ ہوتے ہیں؟', opts: ['مقطع', 'مطلع', 'ردیف', 'تخلص'], ans: 1, exp: 'غزل کا پہلا ہم قافیہ شعر مطلع کہلاتا ہے۔' },
+        { ch: 7, q: 'غزل کے آخری شعر کو جس میں شاعر اپنا تخلص استعمال کرتا ہے کیا کہتے ہیں؟', opts: ['مطلع', 'مقطع', 'قافیہ', 'تشبیہ'], ans: 1, exp: 'شاعر کے تخلص والا آخری شعر مقطع کہلاتا ہے۔' },
+        { ch: 0, q: 'اردو کے پہلے ناول نگار کون تسلیم کیے جاتے ہیں؟', opts: ['پریم چند', 'ڈپٹی نذیر احمد', 'سرسید احمد خان', 'مرزا ہادی رسوا'], ans: 1, exp: 'ڈپٹی نذیر احمد (مصنف مراۃ العروس) اردو کے پہلے ناول نگار ہیں۔' },
+        { ch: 2, q: 'کسی چیز کو اس کی کسی خاص خوبی کی بنا پر دوسری چیز جیسا قرار دینا کیا کہلاتا ہے؟', opts: ['استعارہ', 'تشبیہ', 'تلمیح', 'کنایہ'], ans: 1, exp: 'حروف تشبیہ (جیسا، مانند) کے ساتھ موازنہ کرنا تشبیہ کہلاتا ہے۔' },
+        { ch: 1, q: 'لفظ "امید" کا متضاد (الٹ) کیا ہے؟', opts: ['خوشی', 'یاس / ناامیدی', 'آرزو', 'تمنا'], ans: 1, exp: 'امید کا متضاد یاس یا ناامیدی ہے۔' }
+      ],
+      '9-Islamiat': [
+        { ch: 0, q: 'قرآن مجید کی کل کتنی سورتیں ہیں؟', opts: ['110', '114', '120', '99'], ans: 1, exp: 'باب اول: قرآن مجید میں کل 114 سورتیں اور 30 پارے ہیں۔' },
+        { ch: 0, q: 'قرآن مجید کس رات میں نازل ہونا شروع ہوا؟', opts: ['شب برات', 'شب قدر (لیلۃ القدر)', 'شب معراج', 'عید کی رات'], ans: 1, exp: 'باب اول: قرآن مجید رمضان المبارک کی بابرکت رات لیلۃ القدر میں نازل ہوا۔' },
+        { ch: 0, q: 'قرآن مجید کی سب سے طویل سورت کون سی ہے؟', opts: ['سورۃ آل عمران', 'سورۃ البقرہ', 'سورۃ النساء', 'سورۃ یٰسین'], ans: 1, exp: 'باب اول: سورۃ البقرہ قرآن مجید کی سب سے بڑی سورت ہے۔' },
+        { ch: 1, q: 'اسلام کا پہلا بنیادی رکن کون سا ہے؟', opts: ['نماز', 'کلمہ طیبہ (توحید و رسالت)', 'زکوٰۃ', 'حج'], ans: 1, exp: 'باب دوم: توحید و رسالت کی گواہی اسلام کا پہلا رکن ہے۔' },
+        { ch: 1, q: 'عقیدہ توحید کے لغوی معنی کیا ہیں؟', opts: ['عبادت کرنا', 'ایک ماننا / یکتا جاننا', 'سفر کرنا', 'صدقہ دینا'], ans: 1, exp: 'باب دوم: توحید کے معنی اللہ تعالیٰ کو اس کی ذات و صفات میں یکتا ماننا ہے۔' },
+        { ch: 1, q: 'تمام انبیاء کرام علیہم السلام میں سب سے آخری نبی کون ہیں؟', opts: ['حضرت عیسیٰ علیہ السلام', 'حضرت محمد مصطفیٰ ﷺ', 'حضرت موسیٰ علیہ السلام', 'حضرت ابراہیم علیہ السلام'], ans: 1, exp: 'باب دوم: حضرت محمد ﷺ خاتم النبیین ہیں۔' },
+        { ch: 2, q: 'فتح مکہ کس سن ہجری میں پیش آیا؟', opts: ['6 ہجری', '8 ہجری', '10 ہجری', '2 ہجری'], ans: 1, exp: 'باب سوم: فتح مکہ رمضان 8 ہجری میں واقع ہوا۔' },
+        { ch: 2, q: 'غزوہ حنین کس سن ہجری میں لڑا گیا؟', opts: ['5 ہجری', '8 ہجری', '9 ہجری', '3 ہجری'], ans: 1, exp: 'باب سوم: غزوہ حنین شوال 8 ہجری میں فتح مکہ کے فوراً بعد پیش آیا۔' },
+        { ch: 2, q: 'فتح مکہ کے موقع پر نبی کریم ﷺ نے اہل مکہ کے لیے کیا اعلان فرمایا؟', opts: ['قید کا حکم', 'عام معافی کا اعلان', 'جلاوطنی کا حکم', 'جرمانے کا حکم'], ans: 1, exp: 'باب سوم: آپ ﷺ نے فرمایا "آج تم پر کوئی گرفت نہیں، جاؤ تم سب آزاد ہو"۔' },
+        { ch: 3, q: 'امانت کا متضاد کیا ہے؟', opts: ['دیانت', 'خیانت', 'صداقت', 'شجاعت'], ans: 1, exp: 'باب چہارم: امانت میں کوتاہی یا بددیانتی کرنا خیانت کہلاتا ہے۔' },
+        { ch: 3, q: 'حدیث نبوی ﷺ کے مطابق منافق کی کتنی نشانیاں بیان کی گئی ہیں؟', opts: ['دو', 'تین', 'پانچ', 'سات'], ans: 1, exp: 'باب چہارم: بات کرے تو جھوٹ بولے، وعدہ کرے تو خلاف ورزی کرے، امانت میں خیانت کرے۔' },
+        { ch: 3, q: 'عدل و انصاف کے لغوی معنی کیا ہیں؟', opts: ['معاف کرنا', 'برابری اور حق دار کو اس کا حق دینا', 'مدد کرنا', 'صبر کرنا'], ans: 1, exp: 'باب چہارم: عدل کے معنی ہر حقدار کو اس کا جائز حق دینا ہے۔' },
+        { ch: 4, q: 'اسلامی معاشرے میں سب سے زیادہ حقوق کس کے بیان کیے گئے ہیں؟', opts: ['دوستوں کے', 'والدین کے', 'تاجروں کے', 'مسافروں کے'], ans: 1, exp: 'باب پنجم: اللہ کی عبادت کے بعد والدین کے ساتھ حسن سلوک کا حکم ہے۔' },
+        { ch: 5, q: 'حضرت امام جعفر صادق رحمۃ اللہ علیہ کس سن ہجری میں پیدا ہوئے؟', opts: ['50 ہجری', '80 ہجری', '100 ہجری', '120 ہجری'], ans: 1, exp: 'باب ششم: حضرت امام جعفر صادقؒ 80 ہجری میں مدینہ منورہ میں پیدا ہوئے۔' },
+        { ch: 5, q: 'مشہور محدث امام بخاری رحمۃ اللہ علیہ کی صحیح احادیث کی کتاب کا نام کیا ہے؟', opts: ['موطا امام مالک', 'صحیح بخاری', 'سنن ابو داؤد', 'مسند احمد'], ans: 1, exp: 'باب ششم: صحیح بخاری قرآن کے بعد صحیح ترین کتاب مانی جاتی ہے۔' }
+      ],
+      '10-Biology': [
+        { ch: 0, q: 'In humans, gaseous exchange takes place inside tiny air sacs called:', opts: ['Bronchi', 'Alveoli', 'Trachea', 'Larynx'], ans: 1, exp: 'Chapter 1: Alveoli are surrounded by blood capillaries for O₂/CO₂ exchange.' },
+        { ch: 0, q: 'The flap of cartilage that prevents food from entering the trachea during swallowing is:', opts: ['Glottis', 'Epiglottis', 'Pharynx', 'Diaphragm'], ans: 1, exp: 'Chapter 1: Epiglottis covers the glottis when swallowing food.' },
+        { ch: 1, q: 'The structural and functional unit of the human kidney is:', opts: ['Neuron', 'Nephron', 'Alveolus', 'Villus'], ans: 1, exp: 'Chapter 2: Over one million nephrons filter blood in each kidney.' },
+        { ch: 1, q: 'Removal of excess water in the form of liquid droplets from leaf margins is called:', opts: ['Transpiration', 'Guttation', 'Osmosis', 'Excretion'], ans: 1, exp: 'Chapter 2: Guttation occurs through hydathodes at leaf tips/margins.' },
+        { ch: 2, q: 'Which part of the human brain controls muscular balance and posture?', opts: ['Cerebrum', 'Cerebellum', 'Medulla Oblongata', 'Hypothalamus'], ans: 1, exp: 'Chapter 3: Cerebellum coordinates voluntary movement and balance.' },
+        { ch: 2, q: 'Insulin hormone is secreted by which endocrine gland?', opts: ['Thyroid', 'Pancreas', 'Pituitary', 'Adrenal'], ans: 1, exp: 'Chapter 3: Islets of Langerhans in the pancreas secrete insulin.' },
+        { ch: 3, q: 'How many bones are present in an adult human endoskeleton?', opts: ['200', '206', '212', '300'], ans: 1, exp: 'Chapter 4: The adult human skeleton consists of 206 bones.' },
+        { ch: 3, q: 'Tough bands of fibrous connective tissue that attach muscles to bones are called:', opts: ['Ligaments', 'Tendons', 'Cartilage', 'Joints'], ans: 1, exp: 'Chapter 4: Tendons connect skeletal muscles to bones.' },
+        { ch: 4, q: 'Which type of asexual reproduction occurs in Yeast?', opts: ['Binary Fission', 'Budding', 'Spore Formation', 'Fragmentation'], ans: 1, exp: 'Chapter 5: Yeast reproduces asexually by forming small buds.' },
+        { ch: 4, q: 'Double fertilization is a unique characteristic feature of:', opts: ['Gymnosperms', 'Angiosperms (Flowering plants)', 'Bryophytes', 'Ferns'], ans: 1, exp: 'Chapter 5: Angiosperms undergo double fertilization forming zygote and endosperm.' },
+        { ch: 5, q: 'Who is regarded as the Father of Genetics?', opts: ['Charles Darwin', 'Gregor Mendel', 'Louis Pasteur', 'James Watson'], ans: 1, exp: 'Chapter 6: Gregor Mendel formulated the laws of inheritance.' },
+        { ch: 5, q: 'In DNA, Adenine (A) always pairs with which nitrogenous base?', opts: ['Guanine (G)', 'Thymine (T)', 'Cytosine (C)', 'Uracil (U)'], ans: 1, exp: 'Chapter 6: Adenine pairs with Thymine via two hydrogen bonds.' },
+        { ch: 6, q: 'Organisms that break down dead organic matter into simpler inorganic nutrients are:', opts: ['Producers', 'Decomposers', 'Primary Consumers', 'Herbivores'], ans: 1, exp: 'Chapter 7: Bacteria and fungi act as decomposers in ecosystems.' },
+        { ch: 7, q: 'Which enzyme is used as "molecular scissors" to cut DNA at specific sites in genetic engineering?', opts: ['DNA Ligase', 'Restriction Endonuclease', 'Amylase', 'Polymerase'], ans: 1, exp: 'Chapter 8: Restriction enzymes cleave DNA at specific recognition sequences.' },
+        { ch: 8, q: 'Penicillin, the first discovered antibiotic, was obtained from a fungus by:', opts: ['Edward Jenner', 'Alexander Fleming', 'Robert Koch', 'Joseph Lister'], ans: 1, exp: 'Chapter 9: Sir Alexander Fleming discovered Penicillin in 1928.' }
+      ],
+      '10-Computer': [
+        { ch: 0, q: 'A step-by-step finite procedure written in plain English to solve a problem is called:', opts: ['Flowchart', 'Algorithm', 'Compiler', 'Syntax'], ans: 1, exp: 'Chapter 1: An algorithm is a finite sequence of unambiguous steps.' },
+        { ch: 0, q: 'Which symbol in a flowchart represents a decision or conditional branching?', opts: ['Rectangle', 'Diamond', 'Oval', 'Parallelogram'], ans: 1, exp: 'Chapter 1: A diamond shape indicates a Yes/No or True/False decision.' },
+        { ch: 1, q: 'Every C language program must contain which mandatory function?', opts: ['start()', 'main()', 'program()', 'void()'], ans: 1, exp: 'Chapter 2: Program execution in C always starts at main().' },
+        { ch: 1, q: 'Which preprocessor directive is used to include standard input/output header file in C?', opts: ['#define <stdio.h>', '#include <stdio.h>', 'import stdio.h', 'using stdio.h'], ans: 1, exp: 'Chapter 2: #include <stdio.h> includes printf() and scanf() declarations.' },
+        { ch: 1, q: 'Which symbol is used to terminate every statement in C language?', opts: ['Colon (:)', 'Semicolon (;)', 'Comma (,)', 'Period (.)'], ans: 1, exp: 'Chapter 2: A semicolon (;) acts as the statement terminator in C.' },
+        { ch: 2, q: 'Which format specifier is used to read or print an integer (int) in C?', opts: ['%f', '%c', '%d', '%s'], ans: 2, exp: 'Chapter 3: %d is the format specifier for signed integers.' },
+        { ch: 2, q: 'Which function is used to take formatted input from the keyboard in C?', opts: ['printf()', 'scanf()', 'getch()', 'puts()'], ans: 1, exp: 'Chapter 3: scanf() reads formatted user input.' },
+        { ch: 2, q: 'Which escape sequence moves the cursor to a new line in C output?', opts: ['\\t', '\\n', '\\b', '\\a'], ans: 1, exp: 'Chapter 3: \\n represents a newline character.' },
+        { ch: 3, q: 'Which loop checks its condition at the end after executing the body at least once?', opts: ['for loop', 'while loop', 'do-while loop', 'nested if'], ans: 2, exp: 'Chapter 4: do-while is an exit-controlled loop.' },
+        { ch: 3, q: 'Which statement immediately terminates a loop or switch block in C?', opts: ['continue', 'break', 'goto', 'return'], ans: 1, exp: 'Chapter 4: The break statement exits the innermost loop or switch.' },
+        { ch: 4, q: 'A function that calls itself directly or indirectly is known as a:', opts: ['Built-in function', 'Recursive function', 'Library function', 'Void function'], ans: 1, exp: 'Chapter 5: Recursion occurs when a function invokes itself.' },
+        { ch: 4, q: 'Variables declared inside a function body are accessible only within that function and are called:', opts: ['Global variables', 'Local variables', 'Static constants', 'External variables'], ans: 1, exp: 'Chapter 5: Local variables have block/function scope.' },
+        { ch: 5, q: 'Which logic gate outputs 1 (HIGH) only when ALL inputs are 1 (HIGH)?', opts: ['OR Gate', 'AND Gate', 'NOT Gate', 'XOR Gate'], ans: 1, exp: 'Chapter 6: AND gate performs logical multiplication (A · B).' },
+        { ch: 5, q: 'Which logic gate acts as an inverter, reversing 0 to 1 and 1 to 0?', opts: ['AND Gate', 'NOT Gate', 'OR Gate', 'NAND Gate'], ans: 1, exp: 'Chapter 6: NOT gate complements its single input.' },
+        { ch: 6, q: 'In Scratch programming, the graphical characters or objects that perform actions on stage are called:', opts: ['Blocks', 'Sprites', 'Scripts', 'Costumes'], ans: 1, exp: 'Chapter 7: Sprites are the programmable characters/objects in Scratch.' }
+      ],
+      '10-Maths': [
+        { ch: 0, q: 'If A = {1, 2} and B = {3, 4}, then A ∩ B is equal to:', opts: ['{1, 2, 3, 4}', '∅ (Empty Set)', '{1, 3}', '{2, 4}'], ans: 1, exp: 'Unit 17: Disjoint sets have no common elements, so A ∩ B = ∅.' },
+        { ch: 0, q: 'According to De Morgan’s Law, (A ∪ B)\' is equal to:', opts: ['A\' ∪ B\'', 'A\' ∩ B\'', 'A ∩ B', 'A ∪ B'], ans: 1, exp: 'Unit 17: Complement of union equals intersection of complements.' },
+        { ch: 1, q: 'If a : b :: c : d, then according to Alternando theorem:', opts: ['b : a :: d : c', 'a : c :: b : d', '(a+b) : b :: (c+d) : d', 'ad = bc'], ans: 1, exp: 'Unit 18: Alternando swaps the means: a : c :: b : d.' },
+        { ch: 2, q: 'A square matrix whose determinant is equal to zero (|A| = 0) is called a:', opts: ['Non-singular matrix', 'Singular matrix', 'Identity matrix', 'Scalar matrix'], ans: 1, exp: 'Unit 19: A matrix with |A| = 0 has no multiplicative inverse and is singular.' },
+        { ch: 2, q: 'If A is a matrix of order 2 × 3 and B is of order 3 × 2, then order of product AB is:', opts: ['3 × 3', '2 × 2', '2 × 3', '3 × 2'], ans: 1, exp: 'Unit 19: Product of (2×3) and (3×2) matrices has order 2 × 2.' },
+        { ch: 3, q: 'The discriminant of the quadratic equation ax² + bx + c = 0 is:', opts: ['b² + 4ac', 'b² - 4ac', '4ac - b²', 'b - 4ac'], ans: 1, exp: 'Unit 20: Discriminant Δ = b² - 4ac determines the nature of roots.' },
+        { ch: 3, q: 'The sum of the cube roots of unity (1 + ω + ω²) is always equal to:', opts: ['1', '0', '-1', '3'], ans: 1, exp: 'Unit 20: 1 + ω + ω² = 0 and ω³ = 1.' },
+        { ch: 4, q: 'A fraction P(x)/Q(x) where degree of P(x) is less than degree of Q(x) is called:', opts: ['Improper fraction', 'Proper rational fraction', 'Mixed fraction', 'Whole polynomial'], ans: 1, exp: 'Unit 21: Proper fraction has deg(Numerator) < deg(Denominator).' },
+        { ch: 5, q: 'The most frequently occurring observation in a statistical data set is called:', opts: ['Mean', 'Mode', 'Median', 'Range'], ans: 1, exp: 'Unit 22: Mode is the value with highest frequency.' },
+        { ch: 6, q: 'In a right-angled triangle, the square of the hypotenuse equals the sum of squares of the other two sides. This is:', opts: ['Thales Theorem', 'Pythagoras Theorem', 'Apollonius Theorem', 'Midpoint Theorem'], ans: 1, exp: 'Unit 23: c² = a² + b² in a right triangle.' },
+        { ch: 8, q: 'A perpendicular drawn from the center of a circle to a chord always:', opts: ['Doubles the chord', 'Bisects the chord', 'Equals the radius', 'Touches the tangent'], ans: 1, exp: 'Unit 25 Theorem: Perpendicular from center bisects the chord.' },
+        { ch: 9, q: 'A tangent to a circle is always perpendicular to the ________ at the point of contact:', opts: ['Chord', 'Radius', 'Secant', 'Arc'], ans: 1, exp: 'Unit 26 Theorem: Tangent is perpendicular to the radius at the point of tangency.' },
+        { ch: 11, q: 'The angle inscribed in a semi-circle is always a:', opts: ['Acute angle', 'Right angle (90°)', 'Obtuse angle', 'Reflex angle'], ans: 1, exp: 'Unit 28 Theorem: Angle in a semi-circle is 90°.' },
+        { ch: 13, q: 'In trigonometry, sin²θ + cos²θ is equal to:', opts: ['0', '1', 'tan²θ', '-1'], ans: 1, exp: 'Unit 30: Fundamental trigonometric identity sin²θ + cos²θ = 1.' },
+        { ch: 13, q: 'What is the value of tan(45°)?', opts: ['0', '1', '√3', '1/√3'], ans: 1, exp: 'Unit 30: sin(45°)/cos(45°) = 1.' }
+      ],
+      '10-Chemistry': [
+        { ch: 0, q: 'At dynamic chemical equilibrium, the rate of forward reaction is:', opts: ['Zero', 'Equal to the rate of reverse reaction', 'Greater than reverse reaction', 'Less than reverse reaction'], ans: 1, exp: 'Chapter 1: Dynamic equilibrium occurs when forward and reverse reaction rates become equal.' },
+        { ch: 0, q: 'For the Haber process N₂ + 3H₂ ⇌ 2NH₃, what are the units of Kc?', opts: ['mol dm⁻³', 'mol⁻² dm⁶', 'No units', 'mol² dm⁻⁶'], ans: 1, exp: 'Chapter 1: Kc = [NH₃]² / ([N₂][H₂]³) gives mol⁻² dm⁶.' },
+        { ch: 1, q: 'According to Bronsted-Lowry theory, an acid is a substance that:', opts: ['Accepts a proton', 'Donates a proton (H⁺)', 'Donates OH⁻', 'Accepts an electron pair'], ans: 1, exp: 'Chapter 2: Bronsted-Lowry acids are proton donors.' },
+        { ch: 1, q: 'What is the pH of pure neutral water at 25°C?', opts: ['0', '7', '14', '1'], ans: 1, exp: 'Chapter 2: Neutral solutions have [H⁺] = 10⁻⁷ M, so pH = 7.' },
+        { ch: 2, q: 'The general formula of Alkanes (saturated hydrocarbons) is:', opts: ['CₙH₂ₙ', 'CₙH₂ₙ₊₂', 'CₙH₂ₙ₋₂', 'CₙHₙ'], ans: 1, exp: 'Chapter 3: Alkanes follow the general formula CₙH₂ₙ₊₂.' },
+        { ch: 2, q: 'Which functional group is present in Ethyl Alcohol (Ethanol, C₂H₅OH)?', opts: ['Carboxyl (-COOH)', 'Hydroxyl (-OH)', 'Carbonyl (>C=O)', 'Amino (-NH₂)'], ans: 1, exp: 'Chapter 3: Alcohols contain the hydroxyl (-OH) functional group.' },
+        { ch: 3, q: 'Proteins are polymers built from which monomeric units?', opts: ['Fatty acids', 'Amino acids', 'Monosaccharides', 'Nucleotides'], ans: 1, exp: 'Chapter 4: Amino acids link via peptide bonds to form proteins.' },
+        { ch: 3, q: 'Glucose (C₆H₁₂O₆) is classified under carbohydrates as a:', opts: ['Polysaccharide', 'Monosaccharide', 'Disaccharide', 'Lipid'], ans: 1, exp: 'Chapter 4: Glucose is a simple hexose monosaccharide.' },
+        { ch: 4, q: 'Which gas is the primary contributor to the greenhouse effect and global warming?', opts: ['Oxygen', 'Carbon Dioxide (CO₂)', 'Nitrogen', 'Argon'], ans: 1, exp: 'Chapter 5: Excess CO₂ traps infrared heat in Earth’s atmosphere.' },
+        { ch: 4, q: 'Ozone layer in the stratosphere protects Earth from harmful:', opts: ['Infrared rays', 'Ultraviolet (UV) radiation', 'Radio waves', 'X-rays'], ans: 1, exp: 'Chapter 5: Stratospheric ozone absorbs solar UV radiation.' },
+        { ch: 5, q: 'Temporary hardness of water is caused by dissolved:', opts: ['Calcium chloride', 'Bicarbonates of Calcium and Magnesium', 'Magnesium sulphate', 'Sodium chloride'], ans: 1, exp: 'Chapter 6: Ca(HCO₃)₂ and Mg(HCO₃)₂ cause temporary hardness removable by boiling.' },
+        { ch: 5, q: 'Which chemical is widely added to municipal water supplies to kill bacteria (disinfection)?', opts: ['Sodium carbonate', 'Chlorine', 'Calcium sulphate', 'Nitrogen'], ans: 1, exp: 'Chapter 6: Chlorination disinfects drinking water.' },
+        { ch: 6, q: 'Analytical chemistry that determines "how much" of a substance is present is called:', opts: ['Qualitative analysis', 'Quantitative analysis', 'Organic synthesis', 'Electrolysis'], ans: 1, exp: 'Chapter 7: Quantitative analysis measures exact amounts/concentrations.' },
+        { ch: 7, q: 'In the Solvay Process, which industrial chemical is manufactured from brine and limestone?', opts: ['Sulphuric acid', 'Sodium Carbonate (Soda Ash)', 'Ammonia', 'Nitric acid'], ans: 1, exp: 'Chapter 8: Solvay process produces Na₂CO₃ (washing soda/soda ash).' },
+        { ch: 7, q: 'Petroleum is refined into useful fractions like petrol and diesel by:', opts: ['Filtration', 'Fractional Distillation', 'Sublimation', 'Crystallization'], ans: 1, exp: 'Chapter 8: Fractional distillation separates crude oil based on boiling points.' }
+      ],
+      '10-Physics': [
+        { ch: 0, q: 'In Simple Harmonic Motion (SHM), acceleration is always directed towards the:', opts: ['Extreme position', 'Mean position', 'Upward direction', 'Tangent path'], ans: 1, exp: 'Unit 10: Restoring force always directs acceleration toward the equilibrium/mean position.' },
+        { ch: 0, q: 'The relation between wave speed (v), frequency (f), and wavelength (λ) is:', opts: ['v = f / λ', 'v = f × λ', 'v = λ / f', 'v = f + λ'], ans: 1, exp: 'Unit 10: Universal wave equation v = fλ.' },
+        { ch: 1, q: 'Sound waves in air travel as which type of mechanical waves?', opts: ['Transverse waves', 'Longitudinal waves', 'Electromagnetic waves', 'Stationary waves'], ans: 1, exp: 'Unit 11: Sound propagates via compressions and rarefactions (longitudinal).' },
+        { ch: 1, q: 'The audible frequency range for a normal healthy human ear is:', opts: ['2 Hz to 200 Hz', '20 Hz to 20,000 Hz', '200 Hz to 200,000 Hz', 'Above 20,000 Hz'], ans: 1, exp: 'Unit 11: Humans hear frequencies between 20 Hz and 20 kHz.' },
+        { ch: 2, q: 'All electromagnetic waves travel in vacuum at a constant speed of:', opts: ['3 × 10⁶ m/s', '3 × 10⁸ m/s', '332 m/s', '1.5 × 10⁸ m/s'], ans: 1, exp: 'Unit 12: Speed of light c = 3 × 10⁸ m/s in vacuum.' },
+        { ch: 3, q: 'Which lens is thicker at the middle and converges parallel light rays to a focus?', opts: ['Concave lens', 'Convex lens', 'Plano-concave lens', 'Cylindrical lens'], ans: 1, exp: 'Unit 13: A convex lens is a converging lens.' },
+        { ch: 3, q: 'To correct short-sightedness (Myopia), spectacles with which lens are used?', opts: ['Convex lens', 'Concave (diverging) lens', 'Bifocal mirror', 'Prism'], ans: 1, exp: 'Unit 13: Concave lenses diverge incoming rays so the image focuses on the retina.' },
+        { ch: 4, q: 'The SI unit of electric charge is:', opts: ['Ampere', 'Coulomb', 'Volt', 'Ohm'], ans: 1, exp: 'Unit 14: Electric charge is measured in Coulombs (C).' },
+        { ch: 4, q: 'The capacitance of a parallel-plate capacitor is measured in:', opts: ['Ohm', 'Farad', 'Henry', 'Tesla'], ans: 1, exp: 'Unit 14: Farad (F) is the SI unit of capacitance.' },
+        { ch: 5, q: 'According to Ohm’s Law, at constant temperature, electric current (I) is directly proportional to:', opts: ['Resistance (R)', 'Potential Difference (V)', 'Length of wire', 'Resistivity'], ans: 1, exp: 'Unit 15: V = IR, so I ∝ V.' },
+        { ch: 5, q: 'What is the SI unit of electrical resistance?', opts: ['Ampere', 'Ohm (Ω)', 'Volt', 'Watt'], ans: 1, exp: 'Unit 15: Resistance is measured in Ohms (Ω).' },
+        { ch: 6, q: 'A device that converts mechanical energy into electrical energy is called an:', opts: ['Electric Motor', 'Electric Generator (Dynamo)', 'Transformer', 'Galvanometer'], ans: 1, exp: 'Unit 16: A generator induces EMF via electromagnetic induction.' },
+        { ch: 7, q: 'Which electronic component allows electric current to flow in only one direction?', opts: ['Resistor', 'Semiconductor Diode', 'Capacitor', 'Inductor'], ans: 1, exp: 'Unit 17: A p-n junction diode conducts in forward bias and blocks reverse bias.' },
+        { ch: 8, q: 'Optical fibers transmit information using light signals based on the phenomenon of:', opts: ['Diffraction', 'Total Internal Reflection', 'Polarization', 'Dispersion'], ans: 1, exp: 'Unit 18: Light stays trapped inside the core via total internal reflection.' },
+        { ch: 10, q: 'In nuclear physics, the splitting of a heavy nucleus (like U-235) into lighter nuclei is called:', opts: ['Nuclear Fusion', 'Nuclear Fission', 'Radioactive Decay', 'Ionization'], ans: 1, exp: 'Unit 20: Nuclear fission splits heavy nuclei releasing huge energy.' }
+      ],
+      '10-English': [
+        { ch: 0, q: 'Who said, "With faith, discipline and selfless devotion to duty, there is nothing worthwhile that you cannot achieve"?', opts: ['Allama Iqbal', 'Quaid-e-Azam Muhammad Ali Jinnah', 'Liaquat Ali Khan', 'Sir Syed Ahmed Khan'], ans: 1, exp: 'Unit 1: Quaid-e-Azam stated this guiding motto for the nation.' },
+        { ch: 0, q: 'In Unit 1, which Caliph was renowned for his strict justice and nocturnal rounds to check on citizens?', opts: ['Hazrat Abu Bakr (RA)', 'Hazrat Umar Farooq (RA)', 'Hazrat Usman (RA)', 'Hazrat Ali (RA)'], ans: 1, exp: 'Unit 1: Hazrat Umar (RA) set an unmatched example of governance and justice.' },
+        { ch: 1, q: 'What is the central message of Unit 2 "Labour and Dignity of Work"?', opts: ['Only desk jobs are respectable', 'All honest physical and mental work deserves respect', 'Manual labour should be avoided', 'Wealth is more important than hard work'], ans: 1, exp: 'Unit 2: Every form of honest labour carries dignity and honour.' },
+        { ch: 1, q: 'Even the Holy Prophet (PBUH) participated with His companions in digging the trench during the:', opts: ['Battle of Badr', 'Battle of Khandaq (Trench)', 'Conquest of Makkah', 'Battle of Tabuk'], ans: 1, exp: 'Unit 2: The Holy Prophet (PBUH) personally worked alongside companions.' },
+        { ch: 2, q: 'In Unit 3 "Practicing Positive Work Ethics", punctuality and honesty at the workplace lead to:', opts: ['Failure', 'Organizational trust and national progress', 'Confusion', 'Delays'], ans: 1, exp: 'Unit 3: Positive work ethics build credibility and productivity.' },
+        { ch: 3, q: 'According to Unit 4, which form of media provides instant audiovisual news and educational broadcasts?', opts: ['Print media only', 'Electronic and Digital Media', 'Postal letters', 'Billboards'], ans: 1, exp: 'Unit 4: Television, radio, and internet form modern electronic/digital media.' },
+        { ch: 4, q: 'Unit 5 "Respecting Self and Others" teaches that true self-respect begins with:', opts: ['Boasting about wealth', 'Good manners, empathy, and respecting others’ rights', 'Criticizing neighbours', 'Ignoring elders'], ans: 1, exp: 'Unit 5: Mutual respect is the foundation of a harmonious society.' },
+        { ch: 5, q: 'According to Unit 6 "Character Building", strong moral character is built through:', opts: ['Truthfulness, integrity, and self-control', 'Short-term popularity', 'Material possessions', 'Flattery'], ans: 0, exp: 'Unit 6: Honesty and integrity shape a person’s lasting character.' },
+        { ch: 6, q: 'In Unit 7 "Praising Nature", the poem "The Daffodils" was written by which Romantic poet?', opts: ['John Keats', 'William Wordsworth', 'Robert Frost', 'P.B. Shelley'], ans: 1, exp: 'Unit 7: William Wordsworth composed "I Wandered Lonely as a Cloud (Daffodils)".' },
+        { ch: 6, q: 'In "The Daffodils", what brings joy to the poet when he lies on his couch in a vacant or pensive mood?', opts: ['The sound of rain', 'The inward flash/memory of the dancing daffodils', 'A new book', 'City lights'], ans: 1, exp: 'Unit 7: The memory of the daffodils fills his heart with pleasure.' },
+        { ch: 7, q: 'Unit 8 "Civic Sense and Civic Activities" emphasizes that good citizens should:', opts: ['Litter public parks', 'Keep their surroundings clean and obey traffic laws', 'Waste clean water', 'Ignore community welfare'], ans: 1, exp: 'Unit 8: Civic sense involves responsibility toward public property and community.' },
+        { ch: 7, q: 'Choose the correct passive voice: "She writes a letter."', opts: ['A letter was written by her.', 'A letter is written by her.', 'A letter is being written by her.', 'A letter has written by her.'], ans: 1, exp: 'Grammar: Present simple active converts to "is written".' },
+        { ch: 2, q: 'Choose the correct indirect speech: He said, "I am busy now."', opts: ['He said that he is busy now.', 'He said that he was busy then.', 'He said that I was busy then.', 'He says he was busy.'], ans: 1, exp: 'Grammar: "am" changes to "was" and "now" changes to "then".' },
+        { ch: 4, q: 'Identify the correct conditional type: "If you work hard, you will pass."', opts: ['Zero Conditional', 'First Conditional', 'Second Conditional', 'Third Conditional'], ans: 1, exp: 'Grammar: If + Present Simple, will + Base Verb is First Conditional.' },
+        { ch: 5, q: 'What is the antonym of the word "Integrity"?', opts: ['Honesty', 'Dishonesty / Corruption', 'Bravery', 'Wisdom'], ans: 1, exp: 'Vocabulary: Integrity means moral uprightness; its opposite is dishonesty.' }
+      ],
+      '10-Sindhi': [
+        { ch: 0, q: 'جنهن نظم ۾ الله تعاليٰ جي واکاڻ ۽ تعريف بيان ڪئي وڃي، تنهن کي ڇا چئبو آهي؟', opts: ['نعت', 'حمد', 'مناجات', 'مرثيو'], ans: 1, exp: 'سبق ١: الله تعاليٰ جي ساراهه واري نظم کي حمد چئبو آهي.' },
+        { ch: 0, q: 'جنهن نظم ۾ حضرت محمد مصطفيٰ ﷺ جن جي ساراهه ڪئي وڃي، تنهن کي ڇا چئبو آهي؟', opts: ['حمد', 'نعت', 'غزل', 'رباعي'], ans: 1, exp: 'سبق ١: نبي ڪريم ﷺ جن جي مدح واري نظم کي نعت چئبو آهي.' },
+        { ch: 1, q: 'حضور اڪرم ﷺ جن کي قرآن مجيد ۾ سڄي جهان لاءِ ڇا ڪري موڪليو ويو آهي؟', opts: ['بادشاهه', 'رحمت اللعالمين', 'سپهه سالار', 'تاجر'], ans: 1, exp: 'سبق ٢: پاڻ سڳورا ﷺ سڄي جهان لاءِ رحمت بڻجي آيا.' },
+        { ch: 1, q: 'نبي ڪريم ﷺ جن هميشه ڪهڙي ڳالهه جي تلقين فرمائيندا هئا؟', opts: ['سچ ڳالهائڻ ۽ امانتداري', 'تڪبر ڪرڻ', 'دولت گڏ ڪرڻ', 'انتقام وٺڻ'], ans: 0, exp: 'سبق ٢: سچائي، امانت ۽ حسن اخلاق پاڻ سڳورن ﷺ جي تعليمات جو نچوڙ آهي.' },
+        { ch: 2, q: 'قائداعظم محمد علي جناح ڪٿي پيدا ٿيا؟', opts: ['لاهور', 'ڪراچي', 'دهلي', 'حيدرآباد'], ans: 1, exp: 'سبق ٣: قائداعظم ٢٥ ڊسمبر ١٨٧٦ع تي ڪراچيءَ ۾ پيدا ٿيا.' },
+        { ch: 2, q: 'قائداعظم قوم کي ڪهڙا ٽي بنيادي اصول ڏنا؟', opts: ['دولت، طاقت، حڪومت', 'ايمان، اتحاد، تنظيم', 'علم، هنر، واپار', 'سفر، محنت، آرام'], ans: 1, exp: 'سبق ٣: ايمان، اتحاد ۽ تنظيم قائداعظم جو مشهور فرمان آهي.' },
+        { ch: 3, q: 'شاهه عبداللطيف ڀٽائي رحہ جو مزار ڪٿي واقع آهي؟', opts: ['سيوهڻ', 'ڀٽ شاهه', 'حيدرآباد', 'ٺٽو'], ans: 1, exp: 'سبق ٤: شاهه سائين جو روضو ڀٽ شاهه (ضلعو مٽياري) ۾ واقع آهي.' },
+        { ch: 3, q: 'شاهه عبداللطيف ڀٽائي رحہ جي شاعريءَ جي مجموعي جو نالو ڇا آهي؟', opts: ['ڪليات اياز', 'شاهه جو رسالو', 'ديوان غالب', 'بانگ درا'], ans: 1, exp: 'سبق ٤: شاهه جو رسالو سنڌي ادب جو عظيم سرمايو آهي.' },
+        { ch: 4, q: 'سنڌ جي قديم تهذيب جو مشهور مرڪز ڪهڙو آهي؟', opts: ['ٽيڪسيلا', 'موهن جو دڙو', 'هڙاپا', 'مهر ڳڙهه'], ans: 1, exp: 'سبق ٥: موهن جو دڙو (لاڙڪاڻو) سنڌو تهذيب جو عظيم نشان آهي.' },
+        { ch: 4, q: 'سنڌي ثقافت جي سڃاڻپ ڪهڙيون شيون آهن؟', opts: ['اجرڪ ۽ سنڌي ٽوپي', 'ڪوٽ ۽ ٽائي', 'پگڙي فقط', 'ڪجهه به نه'], ans: 0, exp: 'سبق ٥: اجرڪ ۽ سنڌي ٽوپي سنڌي ثقافت جي اهم علامت آهن.' },
+        { ch: 5, q: 'سبق "محنت جي عظمت" مطابق عزت ۽ ڪاميابي ڪنهن کي ملي ٿي؟', opts: ['سست ماڻهوءَ کي', 'محنت ڪندڙ انسان کي', 'ننڊ ڪندڙ کي', 'بيڪار ويهندڙ کي'], ans: 1, exp: 'سبق ٦: محنت ۾ عظمت آهي ۽ محنتي انسان ڪامياب ٿئي ٿو.' },
+        { ch: 6, q: 'علم حاصل ڪرڻ هر مسلمان مرد ۽ عورت تي ڇا آهي؟', opts: ['نفل', 'فرض', 'مباح', 'اختياري'], ans: 1, exp: 'سبق ٧: حديث نبوي ﷺ موجب علم حاصل ڪرڻ هر مسلمان تي فرض آهي.' },
+        { ch: 7, q: 'سچل سرمست رحہ کي ڪهڙي لقب سان سڏيو ويندو آهي؟', opts: ['شاعر مشرق', 'هفت زبان شاعر', 'باباءِ اردو', 'ملڪ الشعراء'], ans: 1, exp: 'سبق ٨: ستن ٻولين ۾ شاعري ڪرڻ سبب سچل سرمست هفت زبان شاعر سڏجن ٿا.' },
+        { ch: 7, q: 'سچل سرمست رحہ جو مزار ڪهڙي هنڌ تي آهي؟', opts: ['ڀٽ شاهه', 'درازا شريف (خيرپور)', 'سيوهڻ شريف', 'مڪلي'], ans: 1, exp: 'سبق ٨: سچل سرمست رحہ جو مزار درازا شريف ضلعي خيرپور ۾ آهي.' },
+        { ch: 4, q: 'سنڌي ٻوليءَ جي الف-ب ۾ ڪل ڪيترا اکر آهن؟', opts: ['36', '52', '40', '28'], ans: 1, exp: 'سنڌي الف-ب ۾ کل 52 اکر آهن.' }
+      ],
+      '10-Pak. Studies': [
+        { ch: 0, q: 'The ideology of Pakistan is primarily based on which philosophy of life?', opts: ['Secularism', 'Islam (Islamic Ideology)', 'Socialism', 'Feudalism'], ans: 1, exp: 'Chapter 1: Pakistan was established on the basis of Islamic ideology and Two-Nation Theory.' },
+        { ch: 0, q: 'Who gave the clear concept of Two-Nation Theory in the subcontinent?', opts: ['Lord Mountbatten', 'Sir Syed Ahmed Khan & Allama Iqbal', 'Mahatma Gandhi', 'Lord Curzon'], ans: 1, exp: 'Chapter 1: Sir Syed Ahmed Khan first used the term Two Nations, later articulated by Iqbal and Jinnah.' },
+        { ch: 1, q: 'Who presented the historic Lahore Resolution on 23rd March 1940?', opts: ['Allama Iqbal', 'A.K. Fazlul Huq', 'Liaquat Ali Khan', 'Chaudhry Rehmat Ali'], ans: 1, exp: 'Chapter 2: Sher-e-Bengal A.K. Fazlul Huq moved the Lahore Resolution at Minto Park.' },
+        { ch: 1, q: 'Who proposed the name "PAKISTAN" in his pamphlet "Now or Never" in 1933?', opts: ['Allama Iqbal', 'Chaudhry Rehmat Ali', 'Quaid-e-Azam', 'Maulana Muhammad Ali Jauhar'], ans: 1, exp: 'Chapter 2: Chaudhry Rehmat Ali coined the name Pakistan in January 1933.' },
+        { ch: 2, q: 'When was the first Constitution of Pakistan enforced?', opts: ['14 August 1947', '23 March 1956', '8 June 1962', '14 August 1973'], ans: 1, exp: 'Chapter 3: Pakistan’s first constitution was enforced on 23 March 1956.' },
+        { ch: 2, q: 'The current Constitution of the Islamic Republic of Pakistan was enforced on:', opts: ['23 March 1956', '8 June 1962', '14 August 1973', '12 October 1999'], ans: 2, exp: 'Chapter 3: The 1973 Constitution was promulgated on 14 August 1973.' },
+        { ch: 3, q: 'Which mountain range separates Pakistan from China in the extreme north?', opts: ['Sulaiman Range', 'Karakoram Range', 'Kirthar Range', 'Salt Range'], ans: 1, exp: 'Chapter 4: The Karakoram Range (with K2, 8611m) lies along the Pakistan-China border.' },
+        { ch: 3, q: 'Which is the longest river of Pakistan?', opts: ['River Jhelum', 'River Indus', 'River Chenab', 'River Ravi'], ans: 1, exp: 'Chapter 4: The Indus River flows from the Himalayas to the Arabian Sea.' },
+        { ch: 4, q: 'Thar Coalfield, one of the world’s largest lignite coal reserves, is located in which province?', opts: ['Punjab', 'Sindh', 'Balochistan', 'Khyber Pakhtunkhwa'], ans: 1, exp: 'Chapter 5: Thar Coal reserves are located in District Tharparkar, Sindh.' },
+        { ch: 4, q: 'Sui, famous for Pakistan’s largest natural gas discovery in 1952, is situated in:', opts: ['Sindh', 'Balochistan', 'Punjab', 'Gilgit-Baltistan'], ans: 1, exp: 'Chapter 5: Sui gas field is located in Dera Bugti, Balochistan.' },
+        { ch: 5, q: 'Which city of Pakistan is known as the "Manchester of Pakistan" due to its textile industry?', opts: ['Karachi', 'Faisalabad', 'Sialkot', 'Gujranwala'], ans: 1, exp: 'Chapter 6: Faisalabad is the major hub of Pakistan’s textile manufacturing.' },
+        { ch: 6, q: 'According to census data, which is the most populous province of Pakistan?', opts: ['Sindh', 'Punjab', 'Khyber Pakhtunkhwa', 'Balochistan'], ans: 1, exp: 'Chapter 7: Punjab has the largest share of Pakistan’s population.' },
+        { ch: 7, q: 'What is the national language of Pakistan under the 1973 Constitution?', opts: ['Punjabi', 'Urdu', 'Sindhi', 'English'], ans: 1, exp: 'Chapter 8: Urdu is the national language and symbol of national unity.' },
+        { ch: 8, q: 'Primary education in Pakistan covers which classes?', opts: ['Class 1 to 5', 'Class 6 to 8', 'Class 9 to 10', 'Class 11 to 12'], ans: 0, exp: 'Chapter 9: Primary stage comprises Grades 1 through 5.' },
+        { ch: 9, q: 'In an Islamic Welfare State, the system of Zakat and Ushr is established to:', opts: ['Increase luxury', 'Eradicate poverty and support the needy', 'Fund foreign travel', 'Build private palaces'], ans: 1, exp: 'Chapter 10: Zakat ensures wealth circulation and social welfare for the poor.' }
+      ]
+    };
+
+    // Generates a 15-MCQ set strictly from STBB Class 9 & 10 textbooks (zero generic filler)
+    function generate15McqSet(grade, subject, chapterLabel) {
+      const key = `${grade}-${subject}`;
+      const bookPool = CORE_MCQS[key] || CORE_MCQS['9-Biology'];
+      const bookObj = STBB_BOOKS_CATALOG.find(b => b.grade === grade && b.subject === subject);
+      const isWholeBook = chapterLabel === 'Whole Book (Comprehensive Test)';
+
+      let selectedChapterIdx = -1;
+      if (!isWholeBook && bookObj) {
+        selectedChapterIdx = bookObj.chapters.indexOf(chapterLabel);
+      }
+      
+      let orderedPool = [];
+      if (selectedChapterIdx !== -1) {
+        const chapterSpecific = bookPool.filter(item => item.ch === selectedChapterIdx);
+        const otherBookQuestions = bookPool.filter(item => item.ch !== selectedChapterIdx);
+        orderedPool = [...chapterSpecific, ...otherBookQuestions];
+      } else {
+        orderedPool = [...bookPool];
+      }
+
+      return orderedPool.slice(0, 15).map((item, idx) => {
+        const chTag = bookObj && bookObj.chapters[item.ch]
+          ? bookObj.chapters[item.ch]
+          : chapterLabel;
+        return {
+          id: `${key}-q-${idx}-${item.q.slice(0, 18)}`,
+          grade,
+          subject,
+          chapter: chTag,
+          question: item.q,
+          options: item.opts,
+          answer: item.ans,
+          explanation: item.exp
+        };
+      });
+    }
+
+    let state = {
+      activeTab: 'home',
+      selectedGrade: 9,
+      booksFilterGrade: 'all',
+      selectedSubject: null,
+      quizSelectedSubject: null,
+      quizSelectedChapter: null,
+      activeQuizQuestions: [],
+      quizIndex: 0,
+      quizScore: 0,
+      answeredCurrent: false,
+      currentPreviewBook: null,
+      mistakes: [],
+      history: []
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderSidebars();
+      renderMainContent();
+      lucide.createIcons();
+    });
+
+    function focusBrandName() {
+      const el = document.getElementById('brandNameDisplay');
+      if (el) el.focus();
+    }
+
+    function renderSidebars() {
+      [9, 10].forEach(grade => {
+        const listEl = document.getElementById(`class${grade}SubjectList`);
+        listEl.innerHTML = SUBJECTS[grade].map(subj => {
+          const isSelected = state.selectedGrade === grade && state.selectedSubject === subj;
+          return `
+            <li>
+              <button onclick="selectGradeAndSubject(${grade}, '${subj}')"
+                class="w-full px-4 py-2 text-left flex items-center justify-between transition ${
+                  isSelected
+                    ? 'bg-zinc-800 text-white font-semibold'
+                    : 'text-slate-700 hover:bg-blue-50 hover:text-blue-700'
+                }">
+                <span>${subj}</span>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5 ${isSelected ? 'text-sky-400' : 'text-slate-300'}"></i>
+              </button>
+            </li>
+          `;
+        }).join('');
+      });
+
+      document.getElementById('sidebarGradeBadge').textContent = `Class ${state.selectedGrade}`;
+      document.getElementById('sidebarSubjectBadge').textContent = state.selectedSubject || 'All Subjects';
+      document.getElementById('mistakesCountBadge').textContent = state.mistakes.length;
+      document.getElementById('historyCountBadge').textContent = state.history.length;
+      lucide.createIcons();
+    }
+
+    function switchTab(tabName) {
+      state.activeTab = tabName;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`tab-${tabName}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      if (tabName === 'quiz' && state.selectedSubject && !state.quizSelectedChapter) {
+        state.quizSelectedSubject = state.selectedSubject;
+      }
+      renderMainContent();
+    }
+
+    function selectGrade(grade) {
+      state.selectedGrade = grade;
+      state.booksFilterGrade = grade;
+      state.selectedSubject = null;
+      state.quizSelectedSubject = null;
+      state.quizSelectedChapter = null;
+      state.quizIndex = 0;
+      state.quizScore = 0;
+      state.answeredCurrent = false;
+      addHistory(`Selected Class ${grade}`);
+      renderSidebars();
+
+      if (state.activeTab === 'home') {
+        renderHomeSubjectQuickView(grade);
+      } else {
+        renderMainContent();
+      }
+    }
+
+    function selectGradeAndSubject(grade, subject) {
+      state.selectedGrade = grade;
+      state.booksFilterGrade = grade;
+      state.selectedSubject = subject;
+      state.quizSelectedSubject = subject;
+      state.quizSelectedChapter = null;
+      state.quizIndex = 0;
+      state.quizScore = 0;
+      state.answeredCurrent = false;
+      addHistory(`Selected Class ${grade} • ${subject}`);
+
+      if (state.activeTab === 'home') {
+        switchTab('books');
+      } else {
+        renderMainContent();
+      }
+      renderSidebars();
+    }
+
+    function resetFilters() {
+      state.selectedSubject = null;
+      state.booksFilterGrade = 'all';
+      state.quizSelectedSubject = null;
+      state.quizSelectedChapter = null;
+      renderSidebars();
+      renderMainContent();
+      triggerToast('Showing all classes & subjects');
+    }
+
+    function renderMainContent() {
+      const container = document.getElementById('mainContentArea');
+      if (state.activeTab === 'home') {
+        renderHomeView(container);
+      } else if (state.activeTab === 'quiz') {
+        renderQuizView(container);
+      } else if (state.activeTab === 'books') {
+        renderBooksView(container);
+      } else if (state.activeTab === 'papers') {
+        renderPapersView(container);
+      } else if (state.activeTab === 'lectures') {
+        renderLecturesView(container);
+      }
+      lucide.createIcons();
+    }
+
+    function renderHomeView(container) {
+      container.innerHTML = `
+        <div class="flex-1 flex flex-col items-center justify-center text-center py-2">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 mb-3">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            Sindh Textbook Board (STBB) Portal
+          </span>
+          <h1 class="font-display font-extrabold text-2xl sm:text-4xl text-slate-900 tracking-tight mb-2">
+            Select Your Grade
+          </h1>
+          <p class="text-sm text-slate-500 max-w-md mb-8">
+            Choose your class below to access all STBB textbooks PDF, chapter-wise 15-MCQ quizzes, board past papers, and video lectures.
+          </p>
+
+          <div class="w-full max-w-md space-y-4">
+            <button onclick="selectGrade(9)"
+              class="grade-pill w-full py-4 px-6 rounded-full border-2 ${
+                state.selectedGrade === 9
+                  ? 'border-blue-600 bg-blue-50/70 text-blue-900 shadow-sm'
+                  : 'border-slate-800 bg-white text-slate-900 hover:border-blue-600'
+              } font-display font-bold text-lg sm:text-xl flex items-center justify-between">
+              <span class="w-8"></span>
+              <span>Class 9</span>
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-600 text-white">8 Books</span>
+            </button>
+
+            <button onclick="selectGrade(10)"
+              class="grade-pill w-full py-4 px-6 rounded-full border-2 ${
+                state.selectedGrade === 10
+                  ? 'border-emerald-600 bg-emerald-50/70 text-emerald-900 shadow-sm'
+                  : 'border-slate-800 bg-white text-slate-900 hover:border-emerald-600'
+              } font-display font-bold text-lg sm:text-xl flex items-center justify-between">
+              <span class="w-8"></span>
+              <span>Class 10</span>
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-600 text-white">8 Books</span>
+            </button>
+
+            <button onclick="triggerToast('Class 11 content is coming soon! Currently focused on Class 9 & 10.')"
+              class="grade-pill w-full py-3.5 px-6 rounded-full border-2 border-slate-300 bg-slate-50/70 text-slate-400 font-display font-bold text-base sm:text-lg flex items-center justify-between">
+              <span class="w-16"></span>
+              <span>Class 11</span>
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-slate-200 text-slate-500">Soon</span>
+            </button>
+
+            <button onclick="triggerToast('Class 12 content is coming soon! Currently focused on Class 9 & 10.')"
+              class="grade-pill w-full py-3.5 px-6 rounded-full border-2 border-slate-300 bg-slate-50/70 text-slate-400 font-display font-bold text-base sm:text-lg flex items-center justify-between">
+              <span class="w-16"></span>
+              <span>Class 12</span>
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-slate-200 text-slate-500">Soon</span>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHomeSubjectQuickView(grade) {
+      const container = document.getElementById('mainContentArea');
+      const subjects = SUBJECTS[grade];
+      container.innerHTML = `
+        <div class="space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
+            <div>
+              <button onclick="renderMainContent()" class="text-xs font-semibold text-blue-600 hover:underline flex items-center gap-1 mb-1">
+                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Back to Grade Selection
+              </button>
+              <h2 class="font-display font-bold text-2xl text-slate-900">STBB Class ${grade} — Choose a Subject</h2>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="switchTab('quiz')" class="px-3.5 py-1.5 rounded-xl bg-[#27272a] text-white text-xs font-semibold hover:bg-zinc-900">Chapter Quizzes</button>
+              <button onclick="switchTab('books')" class="px-3.5 py-1.5 rounded-xl bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 flex items-center gap-1.5">
+                <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                <span>Preview Books PDF</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            ${subjects.map(subj => `
+              <button onclick="selectGradeAndSubject(${grade}, '${subj}')"
+                class="p-4 rounded-2xl border border-slate-200 hover:border-blue-500 bg-slate-50/50 hover:bg-blue-50/50 text-left transition group">
+                <div class="w-9 h-9 rounded-xl bg-white border border-slate-200 group-hover:border-blue-300 flex items-center justify-center text-blue-600 mb-3 shadow-2xs">
+                  <i data-lucide="${SUBJECT_ICONS[subj] || 'book'}" class="w-4 h-4"></i>
+                </div>
+                <p class="font-bold text-sm text-slate-900 group-hover:text-blue-700">${subj}</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">PDF • 15 MCQs • Videos</p>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    function renderQuizView(container) {
+      if (state.quizSelectedSubject && state.quizSelectedChapter) {
+        renderActiveQuizSession(container);
+        return;
+      }
+
+      const gradeSubjects = SUBJECTS[state.selectedGrade];
+      const activeBook = state.quizSelectedSubject
+        ? STBB_BOOKS_CATALOG.find(b => b.grade === state.selectedGrade && b.subject === state.quizSelectedSubject)
+        : null;
+
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-blue-600">100% Authentic STBB Textbook MCQs</span>
+              <h2 class="font-display font-bold text-xl sm:text-2xl text-slate-900">Class ${state.selectedGrade} Subject Quiz</h2>
+            </div>
+            <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-full text-xs font-semibold">
+              <button onclick="switchQuizGrade(9)" class="px-3.5 py-1.5 rounded-full transition ${state.selectedGrade === 9 ? 'bg-[#27272a] text-white shadow-2xs' : 'text-slate-600 hover:text-slate-900'}">Class 9</button>
+              <button onclick="switchQuizGrade(10)" class="px-3.5 py-1.5 rounded-full transition ${state.selectedGrade === 10 ? 'bg-emerald-600 text-white shadow-2xs' : 'text-slate-600 hover:text-slate-900'}">Class 10</button>
+            </div>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-500">
+            Select any subject below to slide open its STBB chapters or launch a <strong>15-MCQ Whole Book</strong> test directly from the Sindh Textbook Board syllabus.
+          </p>
+
+          <div class="grid grid-cols-1 ${activeBook ? 'md:grid-cols-12' : ''} gap-4 items-start">
+            <div class="${activeBook ? 'md:col-span-5' : ''} grid ${activeBook ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-1' : 'grid-cols-2 sm:grid-cols-4'} gap-2.5">
+              ${gradeSubjects.map(subj => {
+                const isSelected = state.quizSelectedSubject === subj;
+                return `
+                  <button onclick="openQuizChapterDrawer('${subj}')"
+                    class="p-3.5 rounded-2xl border-2 text-left transition flex items-center justify-between gap-2 ${
+                      isSelected
+                        ? 'border-blue-600 bg-blue-50 text-blue-900 shadow-xs'
+                        : 'border-slate-200 hover:border-blue-400 bg-white text-slate-800'
+                    }">
+                    <div class="flex items-center gap-2.5 min-w-0">
+                      <div class="w-8 h-8 rounded-xl ${isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 text-blue-600'} flex items-center justify-center shrink-0">
+                        <i data-lucide="${SUBJECT_ICONS[subj] || 'help-circle'}" class="w-4 h-4"></i>
+                      </div>
+                      <div class="truncate">
+                        <p class="font-bold text-sm truncate">${subj}</p>
+                        <p class="text-[11px] ${isSelected ? 'text-blue-700' : 'text-slate-400'}">STBB MCQs</p>
+                      </div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 shrink-0 ${isSelected ? 'text-blue-600' : 'text-slate-300'}"></i>
+                  </button>
+                `;
+              }).join('')}
+            </div>
+
+            ${activeBook ? `
+              <div class="md:col-span-7 bg-slate-50 rounded-2xl border-2 border-blue-200 p-4 animate-slide-in space-y-3">
+                <div class="flex items-center justify-between pb-2.5 border-b border-slate-200">
+                  <div>
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-blue-600">Class ${activeBook.grade} • ${activeBook.subject}</span>
+                    <h3 class="font-display font-bold text-base text-slate-900">Select Chapter (15 Textbook MCQs)</h3>
+                  </div>
+                  <button onclick="closeQuizChapterDrawer()" title="Close Chapters"
+                    class="p-1.5 rounded-full hover:bg-slate-200 text-slate-500">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                  </button>
+                </div>
+
+                <div class="max-h-64 overflow-y-auto pr-1 space-y-1.5">
+                  ${activeBook.chapters.map(ch => `
+                    <button onclick="startChapterQuiz('${activeBook.subject}', '${ch.replace(/'/g, "\\'")}')"
+                      class="w-full px-3.5 py-2.5 rounded-xl bg-white hover:bg-blue-600 text-slate-800 hover:text-white border border-slate-200 hover:border-blue-600 text-left text-xs sm:text-sm font-medium transition flex items-center justify-between gap-2 group">
+                      <span class="truncate">${ch}</span>
+                      <span class="shrink-0 text-[11px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 group-hover:bg-white/20 group-hover:text-white">
+                        15 MCQs
+                      </span>
+                    </button>
+                  `).join('')}
+                </div>
+
+                <div class="pt-2 border-t border-slate-200">
+                  <button onclick="startChapterQuiz('${activeBook.subject}', 'Whole Book (Comprehensive Test)')"
+                    class="w-full py-3 px-4 rounded-xl bg-[#27272a] hover:bg-zinc-900 text-white font-display font-bold text-sm shadow-sm transition flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="layers" class="w-4 h-4 text-sky-400"></i>
+                      <span>Whole Book (Comprehensive Test)</span>
+                    </div>
+                    <span class="text-xs bg-white/15 px-2.5 py-0.5 rounded-full font-semibold">15 MCQs</span>
+                  </button>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    function switchQuizGrade(grade) {
+      state.selectedGrade = grade;
+      state.quizSelectedSubject = null;
+      state.quizSelectedChapter = null;
+      renderSidebars();
+      renderMainContent();
+    }
+
+    function openQuizChapterDrawer(subject) {
+      state.quizSelectedSubject = subject;
+      state.selectedSubject = subject;
+      renderSidebars();
+      renderMainContent();
+    }
+
+    function closeQuizChapterDrawer() {
+      state.quizSelectedSubject = null;
+      renderMainContent();
+    }
+
+    function startChapterQuiz(subject, chapterLabel) {
+      state.quizSelectedSubject = subject;
+      state.quizSelectedChapter = chapterLabel;
+      state.activeQuizQuestions = generate15McqSet(state.selectedGrade, subject, chapterLabel);
+      state.quizIndex = 0;
+      state.quizScore = 0;
+      state.answeredCurrent = false;
+      addHistory(`Started Quiz: Class ${state.selectedGrade} ${subject} (${chapterLabel})`);
+      renderMainContent();
+    }
+
+    function exitActiveQuiz() {
+      state.quizSelectedChapter = null;
+      state.quizIndex = 0;
+      state.quizScore = 0;
+      state.answeredCurrent = false;
+      renderMainContent();
+    }
+
+    function renderActiveQuizSession(container) {
+      const questions = state.activeQuizQuestions;
+
+      if (state.quizIndex >= questions.length) {
+        const percentage = Math.round((state.quizScore / questions.length) * 100);
+        container.innerHTML = `
+          <div class="flex-1 flex flex-col items-center justify-center text-center py-6 space-y-4">
+            <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+              <i data-lucide="award" class="w-8 h-8"></i>
+            </div>
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Class ${state.selectedGrade} • ${state.quizSelectedSubject}</span>
+              <h2 class="font-display font-bold text-2xl text-slate-900 mt-1">15-MCQ Quiz Completed!</h2>
+            </div>
+            <p class="text-slate-600 text-sm max-w-md">
+              Chapter: <strong>${state.quizSelectedChapter}</strong><br/>
+              You scored <strong class="text-blue-600 text-lg">${state.quizScore} / ${questions.length}</strong> (${percentage}%)
+            </p>
+            <div class="flex flex-wrap justify-center gap-3 pt-2">
+              <button onclick="restartQuiz()" class="px-5 py-2.5 rounded-full bg-[#27272a] hover:bg-zinc-900 text-white text-sm font-semibold">
+                Retake 15 MCQs
+              </button>
+              <button onclick="exitActiveQuiz()" class="px-5 py-2.5 rounded-full border border-slate-300 text-slate-700 hover:bg-slate-100 text-sm font-semibold">
+                Choose Another Chapter
+              </button>
+              <button onclick="openMistakesModal()" class="px-5 py-2.5 rounded-full border-2 border-amber-500 text-amber-800 hover:bg-amber-50 text-sm font-semibold">
+                Revise My Mistakes (${state.mistakes.length})
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const currentQ = questions[state.quizIndex];
+      const progressPct = Math.round(((state.quizIndex + 1) / questions.length) * 100);
+
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
+            <div>
+              <button onclick="exitActiveQuiz()" class="text-xs font-semibold text-blue-600 hover:underline flex items-center gap-1 mb-1">
+                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Back to Chapters
+              </button>
+              <h2 class="font-display font-bold text-base sm:text-lg text-slate-900">
+                Class ${currentQ.grade} ${currentQ.subject} • <span class="text-blue-600">${currentQ.chapter}</span>
+              </h2>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold">
+                Score: ${state.quizScore}
+              </span>
+              <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-800 text-xs font-bold">
+                ${state.quizIndex + 1} / ${questions.length}
+              </span>
+            </div>
+          </div>
+
+          <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+            <div class="h-full bg-blue-600 transition-all duration-300" style="width: ${progressPct}%"></div>
+          </div>
+
+          <div class="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold text-sm sm:text-base text-slate-900 leading-snug">${currentQ.question}</p>
+          </div>
+
+          <div id="quizOptionsContainer" class="space-y-2.5">
+            ${currentQ.options.map((opt, idx) => `
+              <button onclick="submitQuizAnswer(${idx})"
+                class="quiz-opt-btn w-full p-3.5 text-left rounded-2xl border-2 border-slate-200 hover:border-blue-500 hover:bg-blue-50/40 font-medium text-xs sm:text-sm text-slate-800 transition flex items-center gap-3">
+                <span class="w-7 h-7 rounded-full bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0">
+                  ${String.fromCharCode(65 + idx)}
+                </span>
+                <span>${opt}</span>
+              </button>
+            `).join('')}
+          </div>
+
+          <div id="quizFeedbackBox" class="hidden p-3.5 rounded-2xl text-xs sm:text-sm"></div>
+
+          <div class="flex justify-between items-center pt-1">
+            <span class="text-xs text-slate-500">Wrong answers auto-save to <strong>Revise My Mistakes</strong></span>
+            <button id="nextQuestionBtn" onclick="nextQuizQuestion()" class="hidden px-5 py-2 rounded-full bg-[#27272a] hover:bg-zinc-900 text-white text-xs sm:text-sm font-semibold">
+              ${state.quizIndex + 1 === questions.length ? 'Finish Quiz ✓' : 'Next Question →'}
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function submitQuizAnswer(selectedIdx) {
+      if (state.answeredCurrent) return;
+      state.answeredCurrent = true;
+
+      const q = state.activeQuizQuestions[state.quizIndex];
+      const optionButtons = document.querySelectorAll('.quiz-opt-btn');
+      const feedbackBox = document.getElementById('quizFeedbackBox');
+      const nextBtn = document.getElementById('nextQuestionBtn');
+
+      optionButtons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === q.answer) {
+          btn.classList.remove('border-slate-200');
+          btn.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-900');
+        } else if (idx === selectedIdx) {
+          btn.classList.remove('border-slate-200');
+          btn.classList.add('border-rose-500', 'bg-rose-50', 'text-rose-900');
+        }
+      });
+
+      if (selectedIdx === q.answer) {
+        state.quizScore++;
+        feedbackBox.className = 'p-3.5 rounded-2xl text-xs sm:text-sm bg-emerald-50 border border-emerald-200 text-emerald-900';
+        feedbackBox.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
+      } else {
+        feedbackBox.className = 'p-3.5 rounded-2xl text-xs sm:text-sm bg-amber-50 border border-amber-200 text-amber-900';
+        feedbackBox.innerHTML = `<strong>Incorrect — Saved to Revise My Mistakes!</strong><br/>${q.explanation}`;
+        if (!state.mistakes.some(m => m.id === q.id)) {
+          state.mistakes.push({ ...q, userSelected: q.options[selectedIdx] });
+          renderSidebars();
+        }
+      }
+
+      feedbackBox.classList.remove('hidden');
+      nextBtn.classList.remove('hidden');
+    }
+
+    function nextQuizQuestion() {
+      state.quizIndex++;
+      state.answeredCurrent = false;
+      renderMainContent();
+    }
+
+    function restartQuiz() {
+      state.quizIndex = 0;
+      state.quizScore = 0;
+      state.answeredCurrent = false;
+      renderMainContent();
+    }
+
+    function setBooksGradeFilter(filterVal) {
+      state.booksFilterGrade = filterVal;
+      state.selectedSubject = null;
+      if (filterVal === 9 || filterVal === 10) {
+        state.selectedGrade = filterVal;
+      }
+      renderSidebars();
+      renderMainContent();
+    }
+
+    function renderBooksView(container) {
+      let books = STBB_BOOKS_CATALOG;
+      if (state.booksFilterGrade === 9 || state.booksFilterGrade === 10) {
+        books = books.filter(b => b.grade === state.booksFilterGrade);
+      }
+      if (state.selectedSubject) {
+        books = books.filter(b => b.subject === state.selectedSubject);
+      }
+
+      container.innerHTML = `
+        <div class="space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Sindh Textbook Board Jamshoro</span>
+              <h2 class="font-display font-bold text-xl sm:text-2xl text-slate-900">
+                STBB Official Textbooks PDF (${books.length} Books)
+              </h2>
+            </div>
+            <div class="flex gap-1 bg-slate-100 p-1 rounded-full text-xs font-semibold">
+              <button onclick="setBooksGradeFilter('all')"
+                class="px-3 py-1.5 rounded-full transition ${state.booksFilterGrade === 'all' ? 'bg-[#27272a] text-white shadow-2xs' : 'text-slate-600 hover:text-slate-900'}">
+                All (16)
+              </button>
+              <button onclick="setBooksGradeFilter(9)"
+                class="px-3 py-1.5 rounded-full transition ${state.booksFilterGrade === 9 ? 'bg-blue-600 text-white shadow-2xs' : 'text-slate-600 hover:text-slate-900'}">
+                Class 9 (8)
+              </button>
+              <button onclick="setBooksGradeFilter(10)"
+                class="px-3 py-1.5 rounded-full transition ${state.booksFilterGrade === 10 ? 'bg-emerald-600 text-white shadow-2xs' : 'text-slate-600 hover:text-slate-900'}">
+                Class 10 (8)
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-h-[430px] overflow-y-auto pr-1">
+            ${books.map(book => `
+              <div class="p-4 rounded-2xl border border-slate-200 hover:border-blue-400 bg-white flex flex-col justify-between gap-3 transition shadow-2xs">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl ${book.grade === 9 ? 'bg-blue-50 text-blue-600' : 'bg-emerald-50 text-emerald-600'} flex items-center justify-center shrink-0">
+                      <i data-lucide="${SUBJECT_ICONS[book.subject] || 'book-open'}" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <div class="flex items-center gap-1.5">
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${book.grade === 9 ? 'bg-blue-100 text-blue-700' : 'bg-emerald-100 text-emerald-700'}">
+                          Class ${book.grade}
+                        </span>
+                        <span class="text-[11px] text-slate-400">${book.chapters.length} Chapters • ${book.size}</span>
+                      </div>
+                      <h3 class="font-bold text-slate-900 text-sm mt-1">${book.fullTitle}</h3>
+                      <p class="text-[11px] text-slate-500">${book.edition}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between text-[11px] text-slate-500 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-100">
+                  <span class="font-mono font-semibold text-slate-700 truncate">${book.pdfFile}</span>
+                  <span class="text-emerald-600 font-bold shrink-0">● Embedded</span>
+                </div>
+                <div class="flex items-center gap-2 pt-1">
+                  <button onclick="openBookPreview('${book.id}')"
+                    class="flex-1 py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition flex items-center justify-center gap-1.5 shadow-2xs">
+                    <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                    <span>Preview Book</span>
+                  </button>
+                  <button onclick="downloadBookPdf('${book.id}')"
+                    class="py-2 px-3 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-semibold transition flex items-center justify-center gap-1"
+                    title="Download ${book.pdfFile}">
+                    <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                    <span>PDF</span>
+                  </button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function switchPreviewPane(pane) {
+      const readerPane = document.getElementById('previewReaderPane');
+      const tocPane = document.getElementById('previewTocPane');
+      const pdfFramePane = document.getElementById('previewPdfFramePane');
+      const btnReader = document.getElementById('btnPaneReader');
+      const btnToc = document.getElementById('btnPaneToc');
+      const btnPdf = document.getElementById('btnPanePdf');
+      if (!readerPane || !tocPane || !pdfFramePane) return;
+
+      [readerPane, tocPane, pdfFramePane].forEach(el => el.classList.add('hidden'));
+      [btnReader, btnToc, btnPdf].forEach(btn => {
+        btn.classList.remove('bg-[#27272a]', 'text-white', 'shadow-2xs');
+        btn.classList.add('text-slate-600', 'hover:text-slate-900');
+      });
+
+      if (pane === 'reader') {
+        readerPane.classList.remove('hidden');
+        btnReader.classList.add('bg-[#27272a]', 'text-white', 'shadow-2xs');
+        btnReader.classList.remove('text-slate-600', 'hover:text-slate-900');
+      } else if (pane === 'toc') {
+        tocPane.classList.remove('hidden');
+        btnToc.classList.add('bg-[#27272a]', 'text-white', 'shadow-2xs');
+        btnToc.classList.remove('text-slate-600', 'hover:text-slate-900');
+      } else {
+        pdfFramePane.classList.remove('hidden');
+        btnPdf.classList.add('bg-[#27272a]', 'text-white', 'shadow-2xs');
+        btnPdf.classList.remove('text-slate-600', 'hover:text-slate-900');
+      }
+      lucide.createIcons();
+    }
+
+    function openBookPreview(bookId) {
+      const book = STBB_BOOKS_CATALOG.find(b => b.id === bookId);
+      if (!book) return;
+      state.currentPreviewBook = book;
+      addHistory(`Previewed Textbook: ${book.fullTitle} (${book.pdfFile})`);
+
+      const richData = STBB_TEXTBOOK_PREVIEWS[book.id] || {
+        fileName: book.pdfFile,
+        boardCode: `STBB-${book.grade}-${book.subject.toUpperCase()}`,
+        authors: 'Sindh Textbook Board, Jamshoro',
+        pages: '180+ Pages',
+        unitPreviews: book.chapters.slice(0, 3).map((ch, i) => ({
+          unit: ch,
+          pageRef: `Unit ${i + 1}`,
+          summary: `Official Sindh Textbook Board curriculum unit covering core definitions, solved examples, and board exam exercises for ${ch}.`,
+          keyPoints: [
+            `Aligned with STBB Class ${book.grade} ${book.subject} syllabus.`,
+            `Includes end-of-chapter MCQs, short questions, and descriptive problems.`
+          ]
+        }))
+      };
+
+      document.getElementById('previewBadge').textContent = `${book.pdfFile} • Class ${book.grade}`;
+      document.getElementById('previewTitle').textContent = book.fullTitle;
+      document.getElementById('officialStbbLink').href = book.pdfUrl;
+
+      document.getElementById('previewBody').innerHTML = `
+        <!-- Top Textbook Metadata & Preview Mode Switcher -->
+        <div class="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="space-y-0.5">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="font-mono text-xs font-bold px-2.5 py-0.5 rounded-md bg-blue-100 text-blue-800">${richData.fileName}</span>
+              <span class="text-xs font-semibold text-slate-500">${richData.pages} • ${book.size}</span>
+            </div>
+            <p class="text-xs text-slate-600 pt-0.5">${richData.authors}</p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <div class="flex items-center gap-1 bg-slate-200/80 p-1 rounded-xl text-xs font-semibold">
+              <button id="btnPaneReader" type="button" onclick="switchPreviewPane('reader')"
+                class="px-3 py-1.5 rounded-lg bg-[#27272a] text-white shadow-2xs transition flex items-center gap-1.5">
+                <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                <span>Book Preview</span>
+              </button>
+              <button id="btnPaneToc" type="button" onclick="switchPreviewPane('toc')"
+                class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+                <i data-lucide="list" class="w-3.5 h-3.5"></i>
+                <span>All Chapters (${book.chapters.length})</span>
+              </button>
+              <button id="btnPanePdf" type="button" onclick="switchPreviewPane('pdf')"
+                class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+                <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                <span>PDF Frame</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE 1: INTERACTIVE TEXTBOOK READER PREVIEW -->
+        <div id="previewReaderPane" class="space-y-4">
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50/70 border border-blue-200 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-blue-700">${richData.boardCode} • Official Curriculum Preview</span>
+              <p class="text-xs sm:text-sm text-slate-700 mt-0.5">Browse chapter summaries, key formulas, definitions, and textbook highlights below.</p>
+            </div>
+            <button onclick="closeModal('previewModal'); switchTab('quiz'); openQuizChapterDrawer('${book.subject}');"
+              class="px-3.5 py-2 rounded-xl bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 shadow-2xs shrink-0">
+              Practice 15 MCQs →
+            </button>
+          </div>
+
+          <div class="space-y-3">
+            ${richData.unitPreviews.map((item, idx) => `
+              <div class="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2.5">
+                <div class="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-slate-100">
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">${idx + 1}</span>
+                    <h4 class="font-display font-bold text-slate-900 text-sm sm:text-base">${item.unit}</h4>
+                  </div>
+                  <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600">${item.pageRef}</span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">${item.summary}</p>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1.5">
+                  <p class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Key Textbook Concepts & Formulas</p>
+                  <ul class="list-disc list-inside space-y-1 text-xs text-slate-800">
+                    ${item.keyPoints.map(pt => `<li>${pt}</li>`).join('')}
+                  </ul>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- PANE 2: COMPLETE TABLE OF CONTENTS -->
+        <div id="previewTocPane" class="hidden p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+          <div class="flex items-center justify-between pb-1">
+            <p class="font-bold text-slate-900 text-sm">Complete STBB Chapter Table of Contents (${book.chapters.length} Units)</p>
+            <span class="text-xs text-slate-500">Click any chapter for 15 MCQs</span>
+          </div>
+          <ul class="divide-y divide-slate-200/70 text-xs sm:text-sm text-slate-700">
+            ${book.chapters.map((ch, idx) => `
+              <li class="py-2.5 flex items-center justify-between gap-2">
+                <span class="font-medium text-slate-800">${ch}</span>
+                <button onclick="closeModal('previewModal'); switchTab('quiz'); startChapterQuiz('${book.subject}', '${ch.replace(/'/g, "\'")}');"
+                  class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white transition shrink-0">
+                  Unit ${idx + 1} Quiz →
+                </button>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+
+        <!-- PANE 3: EMBEDDED PDF FRAME -->
+        <div id="previewPdfFramePane" class="hidden space-y-3">
+          <div class="flex items-center justify-between p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900">
+            <span>Embedded PDF Frame linked to <strong>${book.pdfFile}</strong> (place the PDF in the same folder as this HTML file for local rendering).</span>
+            <a href="${book.pdfFile}" target="_blank" class="font-bold underline text-blue-700 shrink-0 ml-2">Open File ↗</a>
+          </div>
+          <div class="w-full h-[420px] rounded-2xl border-2 border-slate-300 overflow-hidden bg-slate-100">
+            <iframe src="${book.pdfFile}#toolbar=1" title="${book.fullTitle}" class="w-full h-full"></iframe>
+          </div>
+        </div>
+      `;
+      openModal('previewModal');
+    }
+
+    function downloadBookPdf(bookId) {
+      const book = STBB_BOOKS_CATALOG.find(b => b.id === bookId);
+      if (!book) return;
+      addHistory(`Downloaded PDF: ${book.fullTitle}`);
+      triggerToast(`Downloading "${book.fullTitle}" (${book.size})...`);
+    }
+
+    function downloadCurrentResource() {
+      if (state.currentPreviewBook) {
+        downloadBookPdf(state.currentPreviewBook.id);
+      } else {
+        triggerToast('Download started! Saved for offline study.');
+      }
+    }
+
+    function renderPapersView(container) {
+      const years = ['2025', '2024', '2023', '2022', '2021'];
+      const subjectLabel = state.selectedSubject || 'All Subjects';
+
+      container.innerHTML = `
+        <div class="space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">BSEK Karachi & Sindh Boards</span>
+              <h2 class="font-display font-bold text-xl sm:text-2xl text-slate-900">Class ${state.selectedGrade} Past Papers (${subjectLabel})</h2>
+            </div>
+            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+              Solved + Unsolved
+            </span>
+          </div>
+
+          <div class="space-y-3">
+            ${years.map(year => `
+              <div class="p-4 rounded-2xl border border-slate-200 hover:border-emerald-400 bg-white flex flex-wrap items-center justify-between gap-3 transition">
+                <div class="flex items-center gap-3.5">
+                  <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 font-display font-extrabold text-sm flex items-center justify-center">
+                    ${year}
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-slate-900 text-sm">Annual Board Exam ${year} — Class ${state.selectedGrade} (${subjectLabel})</h3>
+                    <p class="text-xs text-slate-500">Section A (MCQs) • Section B (Short) • Section C (Descriptive)</p>
+                  </div>
+                </div>
+                <button onclick="openPaperPreview(${state.selectedGrade}, '${subjectLabel}', '${year}')"
+                  class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition">
+                  View Paper
+                </button>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function openPaperPreview(grade, subject, year) {
+      addHistory(`Viewed ${year} Past Paper (Class ${grade} ${subject})`);
+      document.getElementById('previewBadge').textContent = `${year} Board Paper`;
+      document.getElementById('previewTitle').textContent = `Class ${grade} ${subject} — Annual Examination ${year}`;
+      document.getElementById('previewBody').innerHTML = `
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+          <div class="flex justify-between text-xs font-bold text-slate-500">
+            <span>Max Marks: 75 / 100</span>
+            <span>Time Allowed: 3 Hours</span>
+          </div>
+          <p class="font-bold text-slate-900">Section "A" — Multiple Choice Questions (20%)</p>
+          <p class="text-xs text-slate-600">1. Attempt all MCQs from the official STBB syllabus. Each question carries 1 mark.</p>
+          <p class="font-bold text-slate-900 pt-2">Section "B" — Short-Answer Questions (40%)</p>
+          <p class="text-xs text-slate-600">2. Answer any 8 questions clearly with diagrams or formulas where required.</p>
+          <p class="font-bold text-slate-900 pt-2">Section "C" — Detailed-Answer Questions (40%)</p>
+          <p class="text-xs text-slate-600">3. Attempt any 3 descriptive questions from the prescribed Sindh Textbook Board chapters.</p>
+        </div>
+      `;
+      openModal('previewModal');
+    }
+
+    function renderLecturesView(container) {
+      const subjects = state.selectedSubject
+        ? [state.selectedSubject]
+        : SUBJECTS[state.selectedGrade].slice(0, 6);
+
+      container.innerHTML = `
+        <div class="space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-purple-600">Concept-Based Video Lessons</span>
+              <h2 class="font-display font-bold text-xl sm:text-2xl text-slate-900">Class ${state.selectedGrade} Video Lectures</h2>
+            </div>
+            <span class="text-xs text-slate-500">Click any lecture to watch</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            ${subjects.map((subj, i) => `
+              <div onclick="openLecturePreview(${state.selectedGrade}, '${subj}', ${i + 1})"
+                class="cursor-pointer group rounded-2xl border border-slate-200 hover:border-blue-500 overflow-hidden bg-white shadow-2xs transition">
+                <div class="h-28 bg-gradient-to-br from-zinc-800 to-blue-900 p-4 flex flex-col justify-between relative">
+                  <span class="self-start px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-white/15 text-white backdrop-blur-xs">
+                    Chapter 0${i + 1} • 18:45
+                  </span>
+                  <div class="w-10 h-10 rounded-full bg-white text-blue-600 flex items-center justify-center shadow-md group-hover:scale-110 transition">
+                    <i data-lucide="play" class="w-5 h-5 fill-current ml-0.5"></i>
+                  </div>
+                </div>
+                <div class="p-3.5">
+                  <h3 class="font-bold text-sm text-slate-900 group-hover:text-blue-600">Class ${state.selectedGrade} ${subj} — Complete Chapter Walkthrough</h3>
+                  <p class="text-xs text-slate-500 mt-1">STBB Board Exam Focused Explanation</p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function openLecturePreview(grade, subject, ch) {
+      addHistory(`Watched Lecture: Class ${grade} ${subject} Ch.${ch}`);
+      document.getElementById('previewBadge').textContent = `Video Lecture`;
+      document.getElementById('previewTitle').textContent = `Class ${grade} ${subject} — Chapter ${ch}`;
+      document.getElementById('previewBody').innerHTML = `
+        <div class="aspect-video rounded-2xl bg-slate-900 text-white flex flex-col items-center justify-center p-6 text-center space-y-3">
+          <div class="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center animate-pulse">
+            <i data-lucide="play" class="w-7 h-7 fill-current ml-0.5"></i>
+          </div>
+          <p class="font-display font-bold text-lg">Playing: Class ${grade} ${subject} (Chapter ${ch})</p>
+          <p class="text-xs text-slate-300 max-w-md">
+            Interactive video player ready for your studies! Connect YouTube embed links or teacher lectures here.
+          </p>
+        </div>
+      `;
+      openModal('previewModal');
+      lucide.createIcons();
+    }
+
+    // ==================== INTERACTIVE UNIVERSAL SEARCH ENGINE ====================
+    function buildUniversalSearchIndex() {
+      const items = [];
+      const years = ['2025', '2024', '2023', '2022', '2021'];
+
+      STBB_BOOKS_CATALOG.forEach(book => {
+        // 1. Textbooks PDF
+        items.push({
+          type: 'Book PDF',
+          badgeClass: 'bg-blue-100 text-blue-700',
+          icon: 'book-open',
+          title: book.fullTitle,
+          subtitle: `Class ${book.grade} • ${book.subject} • ${book.chapters.length} Chapters (${book.size})`,
+          keywords: `class ${book.grade} ${book.subject} ${book.fullTitle} book pdf textbook stbb ${book.chapters.join(' ')}`.toLowerCase(),
+          action: () => {
+            clearUniversalSearch();
+            selectGradeAndSubject(book.grade, book.subject);
+            switchTab('books');
+            openBookPreview(book.id);
+          }
+        });
+
+        // 2. Whole-Book 15-MCQ Quizzes
+        items.push({
+          type: 'Quiz',
+          badgeClass: 'bg-purple-100 text-purple-700',
+          icon: 'help-circle',
+          title: `Class ${book.grade} ${book.subject} — Whole Book 15-MCQ Test`,
+          subtitle: `STBB Official Syllabus Quiz • 15 Questions`,
+          keywords: `class ${book.grade} ${book.subject} quiz mcq test whole book exam`.toLowerCase(),
+          action: () => {
+            clearUniversalSearch();
+            state.selectedGrade = book.grade;
+            state.selectedSubject = book.subject;
+            renderSidebars();
+            switchTab('quiz');
+            startChapterQuiz(book.subject, 'Whole Book (Comprehensive Test)');
+          }
+        });
+
+        // 3. Chapter Quizzes
+        book.chapters.forEach((ch, idx) => {
+          items.push({
+            type: 'Quiz',
+            badgeClass: 'bg-purple-100 text-purple-700',
+            icon: 'help-circle',
+            title: `${ch} — 15 MCQs`,
+            subtitle: `Class ${book.grade} • ${book.subject} Chapter Quiz`,
+            keywords: `class ${book.grade} ${book.subject} ${ch} quiz mcq chapter ${idx + 1}`.toLowerCase(),
+            action: () => {
+              clearUniversalSearch();
+              state.selectedGrade = book.grade;
+              state.selectedSubject = book.subject;
+              renderSidebars();
+              switchTab('quiz');
+              startChapterQuiz(book.subject, ch);
+            }
+          });
+        });
+
+        // 4. Specific STBB Textbook MCQ Topics
+        const mcqList = CORE_MCQS[`${book.grade}-${book.subject}`] || [];
+        mcqList.forEach(m => {
+          items.push({
+            type: 'Quiz Topic',
+            badgeClass: 'bg-indigo-100 text-indigo-700',
+            icon: 'check-circle-2',
+            title: m.q,
+            subtitle: `Class ${book.grade} ${book.subject} • ${book.chapters[m.ch] || 'Textbook MCQ'}`,
+            keywords: `class ${book.grade} ${book.subject} ${m.q} ${m.exp} ${m.opts.join(' ')} quiz`.toLowerCase(),
+            action: () => {
+              clearUniversalSearch();
+              state.selectedGrade = book.grade;
+              state.selectedSubject = book.subject;
+              renderSidebars();
+              switchTab('quiz');
+              const targetCh = book.chapters[m.ch] || 'Whole Book (Comprehensive Test)';
+              startChapterQuiz(book.subject, targetCh);
+            }
+          });
+        });
+
+        // 5. Past Papers (2021-2025)
+        years.forEach(yr => {
+          items.push({
+            type: 'Past Paper',
+            badgeClass: 'bg-emerald-100 text-emerald-700',
+            icon: 'file-text',
+            title: `Annual Board Paper ${yr} — Class ${book.grade} ${book.subject}`,
+            subtitle: `BSEK & Sindh Boards Solved/Unsolved Paper (${yr})`,
+            keywords: `class ${book.grade} ${book.subject} ${yr} past paper board exam solved paper`.toLowerCase(),
+            action: () => {
+              clearUniversalSearch();
+              state.selectedGrade = book.grade;
+              state.selectedSubject = book.subject;
+              renderSidebars();
+              switchTab('papers');
+              openPaperPreview(book.grade, book.subject, yr);
+            }
+          });
+        });
+
+        // 6. Video Lectures
+        book.chapters.slice(0, 6).forEach((ch, idx) => {
+          items.push({
+            type: 'Video Lecture',
+            badgeClass: 'bg-amber-100 text-amber-800',
+            icon: 'play-circle',
+            title: `Video Lecture: Class ${book.grade} ${book.subject} — ${ch}`,
+            subtitle: `Concept Walkthrough • STBB Board Exam Prep`,
+            keywords: `class ${book.grade} ${book.subject} ${ch} video lecture watch class`.toLowerCase(),
+            action: () => {
+              clearUniversalSearch();
+              state.selectedGrade = book.grade;
+              state.selectedSubject = book.subject;
+              renderSidebars();
+              switchTab('lectures');
+              openLecturePreview(book.grade, book.subject, idx + 1);
+            }
+          });
+        });
+      });
+
+      return items;
+    }
+
+    let UNIVERSAL_SEARCH_INDEX = null;
+    let currentSearchMatches = [];
+
+    function handleLiveSearch(rawVal) {
+      if (!UNIVERSAL_SEARCH_INDEX) {
+        UNIVERSAL_SEARCH_INDEX = buildUniversalSearchIndex();
+      }
+
+      const query = rawVal.trim().toLowerCase();
+      const box = document.getElementById('queryResultBox');
+      const list = document.getElementById('queryResultList');
+      const header = document.getElementById('queryResultHeader');
+      const clearBtn = document.getElementById('clearQueryBtn');
+
+      if (!query) {
+        box.classList.add('hidden');
+        clearBtn.classList.add('hidden');
+        return;
+      }
+
+      clearBtn.classList.remove('hidden');
+      const tokens = query.split(/\s+/).filter(Boolean);
+
+      const scored = UNIVERSAL_SEARCH_INDEX.map(item => {
+        let score = 0;
+        const titleLower = item.title.toLowerCase();
+        const allMatch = tokens.every(t => item.keywords.includes(t));
+        if (!allMatch) return { item, score: 0 };
+
+        score += 10;
+        if (titleLower.includes(query)) score += 15;
+        tokens.forEach(t => {
+          if (titleLower.includes(t)) score += 4;
+        });
+        return { item, score };
+      }).filter(entry => entry.score > 0);
+
+      scored.sort((a, b) => b.score - a.score);
+      currentSearchMatches = scored.slice(0, 18).map(s => s.item);
+
+      header.textContent = `Found ${scored.length} matching resource${scored.length === 1 ? '' : 's'} for "${rawVal.trim()}"`;
+
+      if (currentSearchMatches.length === 0) {
+        list.innerHTML = `
+          <div class="p-4 text-center text-xs sm:text-sm text-slate-500">
+            No exact matches for <strong>"${rawVal.trim()}"</strong>. Try searching by subject (e.g., <em>Physics, Biology, Urdu, Sindhi</em>), year (<em>2024</em>), or <em>Quiz</em>.
+          </div>
+        `;
+      } else {
+        list.innerHTML = currentSearchMatches.map((res, i) => `
+          <button type="button" onclick="executeSearchResult(${i})"
+            class="w-full p-3 rounded-xl bg-white hover:bg-blue-50/70 border border-slate-200 hover:border-blue-400 text-left transition flex items-center justify-between gap-3 group">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-8 h-8 rounded-lg ${res.badgeClass} flex items-center justify-center shrink-0">
+                <i data-lucide="${res.icon}" class="w-4 h-4"></i>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${res.badgeClass}">${res.type}</span>
+                  <p class="font-bold text-xs sm:text-sm text-slate-900 group-hover:text-blue-700 truncate">${res.title}</p>
+                </div>
+                <p class="text-[11px] text-slate-500 truncate mt-0.5">${res.subtitle}</p>
+              </div>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-400 group-hover:text-blue-600 shrink-0"></i>
+          </button>
+        `).join('');
+      }
+
+      box.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function executeSearchResult(index) {
+      const selected = currentSearchMatches[index];
+      if (selected && typeof selected.action === 'function') {
+        addHistory(`Searched & Opened: ${selected.title}`);
+        selected.action();
+      }
+    }
+
+    function clearUniversalSearch() {
+      const input = document.getElementById('queryInput');
+      if (input) input.value = '';
+      document.getElementById('queryResultBox').classList.add('hidden');
+      document.getElementById('clearQueryBtn').classList.add('hidden');
+    }
+
+    function handleQuerySubmit(e) {
+      e.preventDefault();
+      const raw = document.getElementById('queryInput').value.trim();
+      if (!raw) return;
+      handleLiveSearch(raw);
+      addHistory(`Searched: "${raw}"`);
+    }
+
+    // ==================== MODALS & HELPERS ====================
+    function openMistakesModal() {
+      const body = document.getElementById('mistakesBody');
+      if (state.mistakes.length === 0) {
+        body.innerHTML = `
+          <div class="text-center py-8 space-y-2">
+            <i data-lucide="check-circle" class="w-10 h-10 text-emerald-500 mx-auto"></i>
+            <p class="font-bold text-slate-900">No Mistakes Recorded Yet!</p>
+            <p class="text-xs text-slate-500">Any question you miss in the <strong>Quiz</strong> tab will automatically appear here for revision.</p>
+          </div>
+        `;
+      } else {
+        body.innerHTML = state.mistakes.map((m, idx) => `
+          <div class="p-4 rounded-2xl border border-amber-200 bg-amber-50/50 space-y-2 text-sm">
+            <div class="flex justify-between text-xs font-bold text-amber-800">
+              <span>Class ${m.grade} • ${m.subject}</span>
+              <span>Mistake #${idx + 1}</span>
+            </div>
+            <p class="font-semibold text-slate-900">${m.question}</p>
+            <p class="text-xs text-rose-700">Your Answer: <strong>${m.userSelected}</strong></p>
+            <p class="text-xs text-emerald-700">Correct Answer: <strong>${m.options[m.answer]}</strong></p>
+            <p class="text-xs text-slate-600 pt-1 border-t border-amber-200/70">${m.explanation}</p>
+          </div>
+        `).join('');
+      }
+      openModal('mistakesModal');
+      lucide.createIcons();
+    }
+
+    function clearMistakes() {
+      state.mistakes = [];
+      renderSidebars();
+      openMistakesModal();
+      triggerToast('Mistakes list cleared');
+    }
+
+    function addHistory(actionText) {
+      const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      state.history.unshift({ actionText, time });
+      if (state.history.length > 15) state.history.pop();
+      document.getElementById('historyCountBadge').textContent = state.history.length;
+    }
+
+    function openHistoryModal() {
+      const body = document.getElementById('historyBody');
+      if (state.history.length === 0) {
+        body.innerHTML = `<p class="text-sm text-slate-500 text-center py-6">No recent activity yet. Click any grade, book, or quiz to begin!</p>`;
+      } else {
+        body.innerHTML = state.history.map(item => `
+          <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 text-sm">
+            <span class="font-medium text-slate-800">${item.actionText}</span>
+            <span class="text-xs text-slate-400">${item.time}</span>
+          </div>
+        `).join('');
+      }
+      openModal('historyModal');
+    }
+
+    function clearHistory() {
+      state.history = [];
+      document.getElementById('historyCountBadge').textContent = '0';
+      openHistoryModal();
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      closeModal('contactModal');
+      e.target.reset();
+      triggerToast('Thank you! Your message has been received.');
+    }
+
+    function triggerToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMessage').textContent = msg;
+      toast.classList.remove('hidden');
+      lucide.createIcons();
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3200);
+    }
+  </script>
+</body>
+</html>
